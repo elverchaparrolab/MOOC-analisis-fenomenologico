@@ -27,8 +27,12 @@ jobs:
           node-version: 24
       - name: Instalar dependencias
         run: npm ci
+      - name: Preparar el contenido (direcciones cortas y navegación del curso)
+        run: node scripts/publicar.mjs preparar
       - name: Construir el sitio
-        run: npx quartz build
+        run: npx quartz build -d contenido-publicado
+      - name: Redirigir las direcciones antiguas
+        run: node scripts/publicar.mjs redirecciones
       - name: Subir el sitio
         uses: actions/upload-pages-artifact@v3
         with:
