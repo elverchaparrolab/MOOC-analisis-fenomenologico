@@ -1,0 +1,5 @@
+node_modules/
+public/
+.quartz-cache/
+# contenido-publicado/ se genera con scripts/publicar.mjs. No se pone aquí
+# porque Quartz no lee las carpetas que aparecen en .gitignore.
