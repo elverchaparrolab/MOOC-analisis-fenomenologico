@@ -19,7 +19,8 @@ const RAIZ = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 const ORIGEN = path.join(RAIZ, "content")
 const DESTINO = path.join(RAIZ, "contenido-publicado")
 const PUBLICO = path.join(RAIZ, "public")
-const CARPETA_CURSO = "40 Cursos/Maestría en educación. - Seminario trabajo de grado/MOOC - Análisis fenomenológico"
+const CARPETA_CURSO =
+  "40 Cursos/Maestría en educación. - Seminario trabajo de grado/MOOC - Análisis fenomenológico"
 const MANIFIESTO = path.join(DESTINO, ".redirecciones.json")
 
 // ---------- utilidades ----------
@@ -87,7 +88,9 @@ function preparar() {
   const intro = notas.find((n) => n.nuevo === "introduccion")
   if (intro) {
     for (const linea of leer(path.join(ORIGEN, intro.rel)).split("\n")) {
-      const m = linea.match(/^\|\s*\[\[\d{12} Sección (\d+).*?\]\]\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$/)
+      const m = linea.match(
+        /^\|\s*\[\[\d{12} Sección (\d+).*?\]\]\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$/,
+      )
       if (m) ruta.set(`seccion-${m[1]}`, { pregunta: m[2], horas: m[3] })
     }
   }
@@ -95,7 +98,10 @@ function preparar() {
   // 4. Reescribe enlaces internos hacia los nombres nuevos
   const reescribir = (texto) => {
     for (const [base, { nuevo }] of mapa) {
-      texto = texto.replace(new RegExp(`(!?\\[\\[)${escapar(base)}(?=[|\\\\#\\]])`, "g"), `$1${nuevo}`)
+      texto = texto.replace(
+        new RegExp(`(!?\\[\\[)${escapar(base)}(?=[|\\\\#\\]])`, "g"),
+        `$1${nuevo}`,
+      )
     }
     return texto
   }
@@ -137,9 +143,15 @@ function preparar() {
       const prev = notas[i - 1]
       const next = notas[i + 1]
       const partes = []
-      partes.push(prev ? tarjetaNav(prev, "← Anterior", "pie-prev") : `<a class="internal pie-prev" href="/" data-no-popover="true"><span class="pie-etiqueta">← Portada</span><span class="pie-titulo">Presentación del curso</span></a>`)
+      partes.push(
+        prev
+          ? tarjetaNav(prev, "← Anterior", "pie-prev")
+          : `<a class="internal pie-prev" href="/" data-no-popover="true"><span class="pie-etiqueta">← Portada</span><span class="pie-titulo">Presentación del curso</span></a>`,
+      )
       if (next) partes.push(tarjetaNav(next, "Siguiente →", "pie-next"))
-      cuerpo = cuerpo.trimEnd() + `\n\n<nav class="pie-seccion" aria-label="Navegación del curso">${partes.join("")}</nav>\n`
+      cuerpo =
+        cuerpo.trimEnd() +
+        `\n\n<nav class="pie-seccion" aria-label="Navegación del curso">${partes.join("")}</nav>\n`
     }
 
     if (rel === "index.md") {
@@ -162,9 +174,12 @@ function preparar() {
   }
   for (const n of notas) agregar(slugQuartz(n.rel), n.nuevo)
   const partes = CARPETA_CURSO.split("/")
-  for (let k = 1; k <= partes.length; k++) agregar(slugQuartz(partes.slice(0, k).join("/")) + "/index", "")
+  for (let k = 1; k <= partes.length; k++)
+    agregar(slugQuartz(partes.slice(0, k).join("/")) + "/index", "")
   fs.writeFileSync(MANIFIESTO, JSON.stringify(redirecciones, null, 2))
-  console.log(`Contenido preparado en ${path.relative(RAIZ, DESTINO)}/ (${notas.length} notas del curso renombradas)`)
+  console.log(
+    `Contenido preparado en ${path.relative(RAIZ, DESTINO)}/ (${notas.length} notas del curso renombradas)`,
+  )
 }
 
 // Portada: convierte la lista de secciones en la ruta del curso
