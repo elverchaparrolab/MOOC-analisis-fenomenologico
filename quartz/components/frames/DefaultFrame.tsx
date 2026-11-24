@@ -54,6 +54,10 @@ export const DefaultFrame: PageFrame = {
               <a href="https://elverchaparrolab.wordpress.com/contenido/">Contenidos y herramientas</a>
               <a href="https://elverchaparrolab.github.io/elver.chaparro-LAB/">Jardín digital</a>
             </nav>
+            <p class="mooc-autoria">
+              <span class="eb">MOOC · Maestría en Educación UPTC</span>
+              <strong>El proceso del análisis fenomenológico</strong> · Desarrollado por <strong>Elver Chaparro Cardozo</strong> · © 2026 · Algunos derechos reservados (CC BY-NC-SA 4.0)
+            </p>
             <Header {...componentData}>
               {header.map((HeaderComponent) => (
                 <HeaderComponent {...componentData} />
@@ -73,7 +77,7 @@ export const DefaultFrame: PageFrame = {
             ))}
             <section class="mooc-content-license" aria-label="Licencia Creative Commons de los contenidos">
               <h2>Licencia de los contenidos</h2>
-              <p>© {new Date().getFullYear()} Elver Chaparro Cardozo. Los contenidos originales de este MOOC se comparten bajo la licencia <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución–NoComercial–CompartirIgual 4.0 (CC BY-NC-SA 4.0)</a>.</p>
+              <p>MOOC «El proceso del análisis fenomenológico», desarrollado por Elver Chaparro Cardozo. © {new Date().getFullYear()} Elver Chaparro Cardozo. Los contenidos originales de este MOOC se comparten bajo la licencia <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución–NoComercial–CompartirIgual 4.0 (CC BY-NC-SA 4.0)</a>.</p>
               <p>Puede compartir y adaptar estos contenidos citando al autor, enlazando la licencia e indicando los cambios, sin fines comerciales y compartiendo las adaptaciones bajo la misma licencia.</p>
               <p>Las citas, imágenes, esquemas y materiales de terceros conservan sus derechos y licencias originales. El software Quartz conserva su licencia MIT.</p>
               <p><a href="https://elverchaparrolab.github.io/elver.chaparro-LAB/licencia">Consultar el aviso común de licencia</a></p>
