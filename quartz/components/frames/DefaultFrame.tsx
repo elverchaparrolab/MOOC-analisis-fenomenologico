@@ -1,5 +1,6 @@
 import { PageFrame, PageFrameProps } from "./types"
 import HeaderConstructor from "../Header"
+import { pathToRoot } from "../../util/path"
 
 const Header = HeaderConstructor()
 
@@ -21,15 +22,38 @@ export const DefaultFrame: PageFrame = {
     right,
     footer,
   }: PageFrameProps) {
+    const root = pathToRoot(componentData.fileData.slug!)
     return (
       <>
         <div class="left sidebar">
+          <section class="mooc-author" aria-label="Autor del MOOC">
+            <a href="https://elverchaparrolab.wordpress.com/acerca-de/" aria-label="Perfil de Elver Chaparro Cardozo">
+              <img src={`${root}/static/elver-chaparro-cardozo.jpg`} alt="Elver Chaparro Cardozo" width="128" height="128" />
+            </a>
+            <p><strong>Elver Chaparro Cardozo</strong><br />Autor del MOOC · Docente</p>
+            <nav aria-label="Redes y perfiles de Elver Chaparro" class="mooc-social-links">
+              <a href="https://github.com/elverchaparrolab">GitHub</a>
+              <a href="https://www.linkedin.com/in/elver-chaparro-26544a100/">LinkedIn</a>
+              <a href="https://www.instagram.com/elvervisual.chaparro/">Instagram</a>
+              <a href="https://x.com/investigiumlab">X</a>
+              <a href="https://wa.me/573115376326">WhatsApp</a>
+              <a href="mailto:investigium.lab@gmail.com">Correo</a>
+              <a href="https://scholar.google.com/citations?hl=es&user=ZXOKubwAAAAJ">Google Scholar</a>
+              <a href="https://www.researchgate.net/profile/Elver-Chaparro-Cardozo">ResearchGate</a>
+            </nav>
+          </section>
           {left.map((BodyComponent) => (
             <BodyComponent {...componentData} />
           ))}
         </div>
         <div class="center">
           <div class="page-header">
+            <nav class="mooc-return-links" aria-label="Regresar y explorar">
+              <a href={root}>Índice del MOOC</a>
+              <a href="https://elverchaparrolab.wordpress.com/">Sitio principal</a>
+              <a href="https://elverchaparrolab.wordpress.com/contenido/">Contenidos y herramientas</a>
+              <a href="https://elverchaparrolab.github.io/elver.chaparro-LAB/">Jardín digital</a>
+            </nav>
             <Header {...componentData}>
               {header.map((HeaderComponent) => (
                 <HeaderComponent {...componentData} />
@@ -47,6 +71,13 @@ export const DefaultFrame: PageFrame = {
             {afterBody.map((BodyComponent) => (
               <BodyComponent {...componentData} />
             ))}
+            <section class="mooc-content-license" aria-label="Licencia Creative Commons de los contenidos">
+              <h2>Licencia de los contenidos</h2>
+              <p>© {new Date().getFullYear()} Elver Chaparro Cardozo. Los contenidos originales de este MOOC se comparten bajo la licencia <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución–NoComercial–CompartirIgual 4.0 (CC BY-NC-SA 4.0)</a>.</p>
+              <p>Puede compartir y adaptar estos contenidos citando al autor, enlazando la licencia e indicando los cambios, sin fines comerciales y compartiendo las adaptaciones bajo la misma licencia.</p>
+              <p>Las citas, imágenes, esquemas y materiales de terceros conservan sus derechos y licencias originales. El software Quartz conserva su licencia MIT.</p>
+              <p><a href="https://elverchaparrolab.github.io/elver.chaparro-LAB/licencia">Consultar el aviso común de licencia</a></p>
+            </section>
           </div>
         </div>
         <div class="right sidebar">
