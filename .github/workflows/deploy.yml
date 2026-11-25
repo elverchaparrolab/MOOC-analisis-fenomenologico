@@ -29,6 +29,8 @@ jobs:
         run: npm ci
       - name: Construir el sitio
         run: npx quartz build
+      - name: Poner el Laboratorio como página de inicio
+        run: cp laboratorio/index.html public/index.html
       - name: Subir el sitio
         uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://translate.google.com https://translate.googleapis.com https://translate-pa.googleapis.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.gstatic.com https://translate.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://www.gstatic.com https://www.google.com https://translate.google.com https://translate.googleapis.com; connect-src 'self' https://translate.googleapis.com https://translate-pa.googleapis.com; frame-src 'self' https://translate.google.com https://translate.googleapis.com; object-src 'none'; base-uri 'self'">
+<title>Laboratorio de análisis fenomenológico · Elver Chaparro Cardozo</title>
+<meta name="description" content="Aplicación abierta para analizar una entrevista o un relato con la fenomenología hermenéutica de Van Manen: lecturas holística, selectiva y detallada, unidades de significado, temas esenciales, variación imaginativa, existenciales, escritura y círculo validador. Todo queda en el navegador y se descarga en Word.">
+<meta name="author" content="Elver Chaparro Cardozo">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Laboratorio de análisis fenomenológico">
+<meta property="og:description" content="Analiza tu propio relato paso a paso con Van Manen. Sin servidor: tu trabajo se guarda en el navegador y se descarga en Word.">
+<meta property="og:image" content="https://elverchaparrolab.github.io/MOOC-analisis-fenomenologico/static/og-image.png">
+<meta property="og:locale" content="es_CO">
+<link rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f5fa6'/%3E%3Cpath d='M23 9.5A9 9 0 1 0 25 16' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Cpath d='M20.5 6.5l3 3-3.6 1.6' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Lenguaje visual de la Ruta de investigación con IA (Source Serif 4, Source Sans 3, IBM Plex Mono, azul #1f5fa6) y estructura del laboratorio ACD: portada oscura, módulos numerados y la aplicación debajo */
+:root{
+  --ink:#0e1f33; --text:#3d4a5c; --muted:#56637a; --soft:#9aa2ad; --line:#dde3ea;
+  --bg:#ffffff; --panel:#f4f6f9; --blue:#1f5fa6; --blue-soft:#eaf1fa; --red:#c81e4a; --red-soft:#fdeef2;
+  --band:#0e1f33; --band-fg:#e7ecf3; --band-soft:#9cc3ff; --mark:rgba(31,95,166,.13); --mark2:rgba(200,30,74,.10);
+  --f-display:"Source Serif 4", Georgia, serif; --f-body:"Source Sans 3", "Helvetica Neue", Arial, sans-serif; --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ink:#eef1f6; --text:#b8c0cc; --muted:#8b95a3; --soft:#6f7988; --line:#2b313b;
+  --bg:#0f1218; --panel:#181c24; --blue:#7c9bff; --blue-soft:#1a2340; --red:#ff7a9a; --red-soft:#3a1822;
+  --band:#0a0d12; --band-fg:#cfd6e2; --mark:rgba(124,155,255,.18); --mark2:rgba(255,122,154,.14); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#eef1f6; --text:#b8c0cc; --muted:#8b95a3; --soft:#6f7988; --line:#2b313b;
+  --bg:#0f1218; --panel:#181c24; --blue:#7c9bff; --blue-soft:#1a2340; --red:#ff7a9a; --red-soft:#3a1822;
+  --band:#0a0d12; --band-fg:#cfd6e2; --mark:rgba(124,155,255,.18); --mark2:rgba(255,122,154,.14); color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);letter-spacing:-.02em;line-height:1.12;margin:0;text-wrap:balance}
+.eb{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin:0 0 .5rem}
+.saltar{position:absolute;left:-999px}.saltar:focus{left:12px;top:12px;z-index:50;background:var(--bg);padding:8px 12px}
+
+/* Barra superior */
+nav.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.top .fila{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);min-width:0}
+.brand svg{width:40px;height:40px;flex:none}
+.brand b{display:block;font-family:var(--f-display);font-size:1.15rem;line-height:1.1}
+.brand small{display:block;font-family:var(--f-display);font-weight:600;color:var(--muted);font-size:.88rem}
+.utiles{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.volver{font-size:.88rem;text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:99px;white-space:nowrap}
+.volver:hover{background:var(--panel);color:var(--ink)}
+.idioma{display:flex;align-items:center;border:1px solid var(--line);border-radius:99px;padding:3px}
+.idioma a{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-decoration:none;color:var(--muted);padding:5px 9px;border-radius:99px}
+.idioma a[aria-current]{background:var(--blue);color:#fff}
+.tema{border:1px solid var(--line);background:none;color:var(--ink);border-radius:99px;width:36px;height:36px;display:grid;place-items:center;cursor:pointer;flex:none}
+.tema svg{width:18px;height:18px}
+@media (max-width:760px){.brand small{display:none}.volver span{display:none}.brand b{font-size:1rem}.brand svg{width:34px;height:34px}}
+@media (max-width:520px){nav.top .fila{gap:8px}.utiles{flex-wrap:nowrap;gap:5px}.volver{padding:6px 4px}.brand{gap:8px}.brand b{font-size:.86rem;line-height:1.15}.brand svg{width:30px;height:30px}.idioma a{padding:5px 6px;font-size:.7rem}.tema{width:32px;height:32px}}
+
+/* Portada oscura (como el laboratorio ACD) */
+.hero{background:var(--band);color:var(--band-fg);padding:52px 0 56px}
+.hero .eb{color:var(--band-soft)}
+.hero h1{color:#fff;font-size:clamp(2.1rem,5vw,3.4rem);margin-bottom:14px}
+.hero .autoria{margin:0 0 18px;color:#dfe6f0}
+.hero .autoria strong{color:#fff}
+.hero .lead{max-width:66ch;margin:0 0 24px;font-size:1.08rem;color:#c3ccd8}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:8px;padding:10px 16px;background:var(--blue);color:#fff;font-weight:700;font-family:inherit;font-size:.92rem;cursor:pointer;text-decoration:none;line-height:1.2}
+.btn.sec{background:none;color:var(--blue);border:1.5px solid var(--blue)}
+.btn.peq{padding:7px 12px;font-size:.85rem}
+.btn.peligro{background:none;color:var(--red);border:1.5px solid var(--red)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.hero .btn{border-radius:99px;padding:12px 22px;font-size:.98rem}
+.hero .btn.claro{background:#9cc3ff;color:#0e1f33}
+.hero .btn.fant{background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.5)}
+
+section.bloque{padding:56px 0}
+.bloque h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:8px}
+.sub{color:var(--muted);margin:0 0 24px;max-width:72ch}
+
+/* Módulos numerados */
+.mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.mod{text-align:left;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;font:inherit;color:inherit;display:flex;flex-direction:column;gap:6px;min-width:0;transition:transform .15s,border-color .15s}
+.mod:hover{transform:translateY(-2px);border-color:var(--blue)}
+.mod[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft)}
+.mod .n{font-family:var(--f-mono);font-weight:500;font-size:.76rem;color:var(--blue)}
+.mod .nv{font-family:var(--f-mono);font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-left:6px}
+.mod .t{font-weight:700;color:var(--ink);font-size:.98rem;line-height:1.25}
+.detalle{margin-top:16px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px}
+.detalle h3{font-size:1.3rem;margin-bottom:6px}
+.detalle .autores{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin:0 0 10px}
+.detalle p{margin:0 0 10px}
+.detalle ul{margin:0 0 6px;padding-left:1.1em}
+.ejemplo{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:.96rem}
+.ejemplo .lbl{font-family:var(--f-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.ejemplo .nota{margin-top:8px;font-size:.86rem;color:var(--muted)}
+mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 3px}
+.ir{margin-top:10px;display:inline-block;font-weight:700;font-size:.92rem;background:none;border:0;color:var(--blue);cursor:pointer;padding:0;font-family:inherit;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){.detalle{grid-template-columns:1fr;padding:18px}}
+
+/* Flujo */
+.flujo{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:paso;margin-top:8px}
+.paso{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px 16px 16px;position:relative}
+.paso::before{counter-increment:paso;content:counter(paso);position:absolute;top:-12px;left:14px;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font:700 .8rem var(--f-body)}
+.paso h3{font-size:1.05rem;margin:4px 0}
+.paso p{margin:0;font-size:.92rem;color:var(--muted)}
+@media (max-width:860px){.flujo{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.flujo{grid-template-columns:1fr}}
+
+/* Aplicación */
+.app{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.app-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.app-head .acciones{display:flex;gap:8px;flex-wrap:wrap}
+.privacidad{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:.92rem;margin:0 0 18px}
+.privacidad b{color:var(--ink)}
+.estado-g{display:block;font-family:var(--f-mono);font-size:.74rem;color:var(--muted);margin-top:4px}
+.pasos{display:flex;gap:5px;overflow-x:auto;scrollbar-width:thin;padding:8px 2px 10px;margin:0 0 6px;position:sticky;top:var(--navh,61px);z-index:5;background:var(--panel)}
+.pasos button{flex:none;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:99px;padding:7px 11px 7px 7px;font:inherit;font-size:.9rem;cursor:pointer;white-space:nowrap}
+.pasos button b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--panel);color:var(--ink);font-size:.76rem}
+.pasos button.hecho b{background:var(--blue-soft);color:var(--blue)}
+.pasos button.hecho::after{content:"✓";color:var(--blue);font-weight:700;font-size:.85rem;margin-left:-2px}
+.pasos button[aria-selected="true"]{border-color:var(--blue);color:var(--blue);font-weight:700}
+.pasos button[aria-selected="true"] b{background:var(--blue);color:#fff}
+.panel{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:24px}
+.panel[hidden]{display:none}
+@media (max-width:600px){.panel{padding:16px 14px}}
+.ph{margin-bottom:18px}
+.ph h3{font-size:clamp(1.35rem,2.6vw,1.7rem);margin-bottom:6px}
+.ph p{margin:0 0 6px;max-width:80ch}
+.ph .apoyo{font-size:.9rem;font-weight:600}
+.ph .autores{font-family:var(--f-mono);font-size:.76rem;color:var(--muted)}
+h4{font-family:var(--f-display);color:var(--ink);font-size:1.12rem;margin:26px 0 8px}
+.ayuda{font-size:.92rem;color:var(--muted);margin:0 0 10px;max-width:80ch}
+.campo{display:block;margin:0 0 14px}
+.campo>span{display:block;font-weight:700;color:var(--ink);font-size:.94rem;margin-bottom:4px}
+input[type=text],input[type=date],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;line-height:1.4}
+textarea{resize:vertical;min-height:2.6em}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--blue);outline-offset:0;border-color:transparent}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:700px){.dos{grid-template-columns:1fr}}
+.alerta{display:block;font-size:.84rem;color:var(--red);margin-top:4px;min-height:0}
+.alerta:empty{display:none}
+.ok{color:var(--blue)}
+
+/* Tablas editables: cuadrícula en escritorio, tarjetas en celular */
+.ted{display:grid;gap:8px;margin:8px 0 10px}
+.ted .fila{display:grid;grid-template-columns:var(--cols);gap:8px;align-items:start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+.ted .cab{display:grid;grid-template-columns:var(--cols);gap:8px;padding:0 11px;font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.ted .celda>small{display:none;font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.ted .lbl{font-weight:700;color:var(--ink);font-size:.94rem;padding-top:8px}
+.ted .lbl small{display:block;font-weight:400;color:var(--muted);font-size:.84rem}
+.ted .quitar{border:0;background:none;color:var(--muted);font-size:1.25rem;line-height:1;cursor:pointer;padding:8px 6px;border-radius:6px}
+.ted .quitar:hover{color:var(--red);background:var(--red-soft)}
+.ted .vacio{font-size:.92rem;color:var(--muted);padding:10px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding-top:4px}
+.chips label{display:inline-flex;align-items:center;gap:5px;font-size:.84rem;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:3px 10px 3px 6px;cursor:pointer}
+.chips input{accent-color:var(--blue)}
+@media (max-width:760px){
+  .ted .cab{display:none}
+  .ted .fila{grid-template-columns:1fr;position:relative;padding-top:12px}
+  .ted .celda>small{display:block}
+  .ted .quitar{position:absolute;top:4px;right:4px}
+}
+
+/* Visor numerado del texto */
+.trabajo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:start}
+.trabajo .lado{position:sticky;top:calc(var(--navh,61px) + 64px)}
+@media (max-width:900px){.trabajo{grid-template-columns:1fr}.trabajo .lado{position:static}}
+.visor-cab{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.visor-cab b{color:var(--ink);font-size:.94rem}
+.visor{border:1px solid var(--line);border-radius:10px;background:var(--bg);max-height:62vh;overflow:auto;font-size:.95rem;padding:6px 0}
+@media (max-width:900px){.visor{max-height:46vh}}
+.visor .ln{display:grid;grid-template-columns:3.1em 1fr auto;gap:8px;padding:1px 10px 1px 0}
+.visor .ln::before{content:attr(data-line);text-align:right;font-family:var(--f-mono);font-size:.74rem;color:var(--soft);padding-top:3px;user-select:none;-webkit-user-select:none}
+.visor .ln::after{content:attr(data-tags);font-family:var(--f-mono);font-size:.68rem;color:var(--blue);padding-top:3px;white-space:nowrap;user-select:none;-webkit-user-select:none}
+.visor .ln.u{background:var(--mark)}
+.visor .ln.s .tx{text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:3px}
+.visor .vacio{padding:18px;color:var(--muted);font-size:.92rem}
+.leyenda{font-size:.8rem;color:var(--muted);margin-top:6px}
+.leyenda i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:4px;background:var(--mark)}
+.leyenda u{text-decoration-color:var(--red);text-decoration-thickness:2px}
+.msg{font-size:.86rem;color:var(--muted);min-height:1.3em;margin-top:6px}
+
+/* Existenciales */
+.exis{display:grid;gap:14px}
+.ex-card{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--panel)}
+.ex-card h5{font-family:var(--f-display);font-size:1.05rem;color:var(--ink);margin:0 0 10px}
+.ex-card h5 small{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);font-weight:400;margin-left:6px}
+.ex-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:700px){.ex-grid{grid-template-columns:1fr}}
+.ex-grid label>span{display:block;font-size:.86rem;font-weight:700;color:var(--ink)}
+.ex-grid label>span em{font-style:normal;font-weight:400;color:var(--muted)}
+.menos{font-size:.92rem;margin:10px 0}
+
+/* IA opcional */
+details.ia{border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-top:22px;background:var(--panel)}
+details.ia summary{cursor:pointer;font-weight:700;color:var(--ink)}
+details.ia pre{white-space:pre-wrap;font-family:var(--f-mono);font-size:.8rem;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;max-height:280px;overflow:auto;color:var(--ink)}
+
+/* Informe */
+.lista-prod{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:6px}
+.lista-prod li{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.lista-prod .m{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.75rem;font-weight:700;background:var(--line);color:var(--muted)}
+.lista-prod li.si .m{background:var(--blue);color:#fff}
+.conteo{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 18px}
+.conteo div{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.conteo b{display:block;font-family:var(--f-display);font-size:1.6rem;color:var(--ink);line-height:1}
+.conteo span{font-size:.84rem;color:var(--muted)}
+.botones{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.nav-pasos{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+.check{display:flex;gap:8px;align-items:center;font-size:.94rem;margin:0 0 14px}
+
+/* Referencias y pie */
+.refs p{padding-left:2em;text-indent:-2em;margin:0 0 10px;font-size:.95rem;max-width:90ch}
+.lecturas{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;margin:0 0 28px;padding:0;list-style:none}
+.lecturas a{display:flex;gap:10px;align-items:baseline;padding:10px 12px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--text);font-size:.94rem;background:var(--bg)}
+.lecturas a:hover{border-color:var(--blue)}
+.lecturas a b{font-family:var(--f-mono);font-size:.74rem;color:var(--blue)}
+footer{background:var(--band);color:var(--band-fg);padding:40px 0;font-size:.92rem}
+footer a{color:#9cc3ff}
+footer .lic{display:flex;gap:16px;align-items:center;border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:16px;margin-top:16px}
+footer .cc{background:#000;color:#fff;border-radius:6px;padding:6px 10px;font-weight:700;font-size:.8rem;white-space:nowrap}
+@media (max-width:600px){footer .lic{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion: reduce){.mod{transition:none}.mod:hover{transform:none}}
+@media print{nav.top,.hero,.pasos,.app-head .acciones,footer{display:none}}
+</style>
+</head>
+<body>
+<a class="saltar" href="#laboratorio">Saltar al laboratorio</a>
+<nav class="top" aria-label="Barra superior"><div class="wrap"><div class="fila">
+  <a class="brand" href="#inicio"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#1f5fa6"/><path d="M34.5 14A14 14 0 1 0 38 24" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M30.5 9.5l4.5 4.5-5.4 2.4" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="24" r="4.4" fill="#fff"/><g fill="#fff"><circle cx="24" cy="12.5" r="1.8"/><circle cx="35.5" cy="24" r="1.8"/><circle cx="24" cy="35.5" r="1.8"/><circle cx="12.5" cy="24" r="1.8"/></g></svg><span><b>Laboratorio de análisis fenomenológico</b><small>Elver Chaparro Cardozo</small></span></a>
+  <div class="utiles">
+    <a class="volver" href="https://elverchaparrolab.wordpress.com/">← <span>Sitio principal</span></a>
+    <div class="idioma" role="group" aria-label="Idioma"><a href="./" aria-current="true" title="Español">ES</a><a href="https://elverchaparrolab-github-io.translate.goog/MOOC-analisis-fenomenologico/?_x_tr_sl=es&amp;_x_tr_tl=en&amp;_x_tr_hl=es" title="English (traducción automática)">EN</a><a href="https://elverchaparrolab-github-io.translate.goog/MOOC-analisis-fenomenologico/?_x_tr_sl=es&amp;_x_tr_tl=pt&amp;_x_tr_hl=es" title="Português (tradução automática)">PT</a></div>
+    <button class="tema" type="button" id="tema" aria-label="Cambiar entre modo claro y oscuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</div></div></nav>
+
+<header class="hero" id="inicio"><div class="wrap">
+  <p class="eb">Aplicación · Versión 1.0</p>
+  <h1>Laboratorio de análisis fenomenológico</h1>
+  <p class="autoria">Aplicación desarrollada por <strong>Elver Chaparro Cardozo</strong> · © 2026 · CC BY-NC-SA 4.0</p>
+  <p class="lead">Analiza tu propia entrevista o tu propio relato con la fenomenología hermenéutica de Van Manen, paso a paso: pregunta y presuposiciones, lecturas holística, selectiva y detallada, unidades de significado, temas esenciales con variación imaginativa, los cuatro existenciales, escritura y círculo validador. Tu trabajo se guarda en este navegador y se descarga en Word.</p>
+  <div class="cta">
+    <a class="btn claro" href="#laboratorio">Usar el laboratorio ↓</a>
+    <a class="btn fant" href="#modulos">Conocer los módulos</a>
+  </div>
+</div></header>
+
+<main id="contenido">
+<section class="bloque" id="modulos"><div class="wrap">
+  <h2>De la experiencia vivida a la descripción temática</h2>
+  <p class="sub">Diez módulos que siguen las actividades de Van Manen. Toca cada uno para ver qué hace, de qué autores viene y un ejemplo con un relato inventado para practicar.</p>
+  <div class="mods" id="mods" role="group" aria-label="Módulos del laboratorio"></div>
+  <div class="detalle" id="detalle" aria-live="polite"></div>
+</div></section>
+
+<section class="bloque" style="padding-top:0"><div class="wrap">
+  <h2>Cómo se trabaja</h2>
+  <p class="sub">El laboratorio ordena el trabajo y vigila algunos errores frecuentes; la interpretación es siempre tuya.</p>
+  <div class="flujo">
+    <div class="paso"><h3>Oriéntate</h3><p>Formula la pregunta, escribe tus presuposiciones y pega el relato. El laboratorio numera las líneas.</p></div>
+    <div class="paso"><h3>Lee en tres niveles</h3><p>Frase de sentido e incidentes; frases selectivas; unidades de significado marcadas sobre el texto.</p></div>
+    <div class="paso"><h3>Reflexiona</h3><p>Agrupa en aspectos vividos, prueba cada tema con la variación imaginativa y relee con los existenciales.</p></div>
+    <div class="paso"><h3>Escribe y valida</h3><p>Anécdota, descripción en dos versiones, preguntas para el participante y criterios de calidad. Descarga el informe.</p></div>
+  </div>
+</div></section>
+
+<section class="bloque app" id="laboratorio"><div class="wrap">
+  <div class="app-head">
+    <div><h2>Laboratorio</h2><p class="sub" style="margin:0">Empieza por el módulo 1 o carga el ejemplo para ver un análisis completo. <span class="estado-g" id="guardado"></span></p></div>
+    <div class="acciones"><button class="btn sec peq" type="button" id="cargarEj">Cargar el ejemplo</button><button class="btn sec peq" type="button" data-go="9">Informe y respaldo</button></div>
+  </div>
+  <p class="privacidad"><b>Tus datos no salen de tu equipo.</b> El laboratorio no tiene servidor ni se conecta a ninguna IA: lo que escribes queda en este navegador (si lo permite) y en los archivos que descargues. Aun así, usa seudónimos, quita nombres de lugares e instituciones y trabaja solo con material que tengas permiso de analizar. Si usas un equipo compartido, borra tu trabajo al terminar.</p>
+
+  <div class="pasos" role="tablist" aria-label="Módulos de trabajo" id="pasos">
+    <button role="tab" data-step="1"><b>1</b>Pregunta</button>
+    <button role="tab" data-step="2"><b>2</b>Material</button>
+    <button role="tab" data-step="3"><b>3</b>Lecturas</button>
+    <button role="tab" data-step="4"><b>4</b>Unidades</button>
+    <button role="tab" data-step="5"><b>5</b>Temas</button>
+    <button role="tab" data-step="6"><b>6</b>Existenciales</button>
+    <button role="tab" data-step="7"><b>7</b>Escritura</button>
+    <button role="tab" data-step="8"><b>8</b>Validación</button>
+    <button role="tab" data-step="9"><b>⬇</b>Informe</button>
+  </div>
+
+  <!-- 1 -->
+  <div class="panel" role="tabpanel" data-panel="1">
+    <header class="ph"><span class="eb">Módulo 01 · Orientación</span><h3>Pregunta fenomenológica y presuposiciones</h3>
+      <p>Una buena pregunta nombra una experiencia que el participante puede reconocer; no pide causas, no evalúa y no busca generalizar. Las presuposiciones no se borran: se hacen visibles y se contrastan con el texto (époché como actitud).</p>
+      <span class="autores">Van Manen (2003, cap. 2, pp. 66–69) · Errasti-Ibarrondo et al. (2018)</span><br><a class="apoyo" data-sec="2" href="#">Lectura de apoyo: Sección 2 →</a></header>
+    <div class="dos">
+      <label class="campo"><span>Tu nombre (para el informe)</span><input type="text" data-path="meta.nombre" autocomplete="name"></label>
+      <label class="campo"><span>Seudónimo del participante</span><input type="text" data-path="meta.seudonimo" placeholder="Nunca el nombre real"></label>
+    </div>
+    <label class="campo"><span>Pregunta fenomenológica</span><textarea data-path="pregunta.q" data-chk="pregunta" rows="2" placeholder="¿Cómo es vivir…? ¿Cómo se vive…?"></textarea><small class="alerta" data-al="pregunta.q"></small></label>
+    <div class="dos">
+      <label class="campo"><span>Por qué te importa (dos líneas)</span><textarea data-path="pregunta.importa" rows="3"></textarea></label>
+      <label class="campo"><span>Lo que la pregunta deja fuera</span><textarea data-path="pregunta.fuera" rows="3" placeholder="Juzgar…, explicar por qué…, medir cuánto…"></textarea></label>
+    </div>
+    <h4>Memo de presuposiciones</h4>
+    <p class="ayuda">Escribe al menos cuatro creencias antes de leer. Cuando tengas el material, liga cada una al pasaje donde podría sesgar la lectura y anota qué dice realmente el texto. Pregunta de control: ¿qué dice el texto y qué agrego yo?</p>
+    <div class="ted" data-table="presup"></div>
+    <button class="btn sec peq" type="button" data-add="presup">＋ Añadir presuposición</button>
+    <div class="nav-pasos"><span></span><button class="btn" type="button" data-go="2">Siguiente: material →</button></div>
+  </div>
+
+  <!-- 2 -->
+  <div class="panel" role="tabpanel" data-panel="2" hidden>
+    <header class="ph"><span class="eb">Módulo 02 · Material experiencial</span><h3>Pega y revisa tu material</h3>
+      <p>El material se produce, no se recolecta. Pega la transcripción o el protocolo escrito: cada salto de línea será una línea numerada. Luego revísalo con las seis sugerencias de Van Manen. Si falta algo, se pregunta al participante; quien analiza no lo completa.</p>
+      <span class="autores">Van Manen (2003, cap. 3, pp. 81–83) · Bevan (2014)</span><br><a class="apoyo" data-sec="3" href="#">Lectura de apoyo: Sección 3 →</a></header>
+    <label class="campo"><span>Tipo de material</span><select data-path="meta.tipo"><option value="">Elige…</option><option>Entrevista conversacional</option><option>Protocolo escrito de experiencia vivida</option><option>Relato o diario</option><option>Otro</option></select></label>
+    <label class="campo"><span>Texto anonimizado</span><textarea data-path="texto" rows="12" placeholder="E: Cuéntame un día concreto en que…&#10;P: …" spellcheck="false" style="font-family:var(--f-mono);font-size:14px"></textarea></label>
+    <div class="botones"><button class="btn sec peq" type="button" id="reajustar">Partir líneas largas (≈ 90 caracteres)</button><span class="msg" id="msgTexto"></span></div>
+    <h4>Revisión con las seis sugerencias</h4>
+    <p class="ayuda">Sirven para revisar cualquier relato antes de analizarlo. Lo que falte se convierte en pregunta para una segunda conversación.</p>
+    <div class="ted" data-table="revision"></div>
+    <label class="campo"><span>Fragmentos dudosos de la transcripción (no se usan como evidencia)</span><textarea data-path="dudosos" rows="2" placeholder="Líneas que hay que verificar con el audio"></textarea></label>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="1">← Pregunta</button><button class="btn" type="button" data-go="3">Siguiente: lecturas →</button></div>
+  </div>
+
+  <!-- 3 -->
+  <div class="panel" role="tabpanel" data-panel="3" hidden>
+    <header class="ph"><span class="eb">Módulo 03 · Lectura</span><h3>Lectura holística y lectura selectiva</h3>
+      <p>Primero lee todo sin subrayar y escribe una frase que exprese el sentido fundamental del texto; divide el relato en incidentes. Después marca las frases que revelan la experiencia, tal como están, y anota por qué. Resumir no es explicar.</p>
+      <span class="autores">Van Manen (2003, cap. 4, pp. 110–113) · Sundler et al. (2019)</span><br><a class="apoyo" data-sec="4" href="#">Lectura de apoyo: Sección 4 →</a></header>
+    <div class="trabajo">
+      <div>
+        <label class="campo"><span>Frase de sentido de todo el texto</span><textarea data-path="holistica" data-chk="desc" rows="3"></textarea><small class="alerta" data-al="holistica"></small></label>
+        <h4>Incidentes</h4>
+        <p class="ayuda">Un incidente es un momento del relato con principio y cierre. Una frase por incidente: ¿describe lo vivido o ya lo explica?</p>
+        <div class="ted" data-table="incidentes"></div>
+        <button class="btn sec peq" type="button" data-add="incidentes">＋ Añadir incidente</button>
+        <h4>Frases selectivas</h4>
+        <p class="ayuda">Selecciona una frase en el texto numerado y pulsa «Marcar frase selectiva». Elige las que revelan, no solo las bonitas; descarta las informativas (fechas, lugares).</p>
+        <div class="ted" data-table="selectivas"></div>
+      </div>
+      <div class="lado">
+        <div class="visor-cab"><b>Texto numerado</b><button class="btn peq" type="button" data-marcar="selectivas">＋ Marcar frase selectiva</button></div>
+        <div class="visor" aria-label="Texto numerado"></div>
+        <p class="leyenda"><i></i>unidad de significado · <u>frase selectiva</u></p>
+        <p class="msg" data-msg="selectivas"></p>
+      </div>
+    </div>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="2">← Material</button><button class="btn" type="button" data-go="4">Siguiente: unidades →</button></div>
+  </div>
+
+  <!-- 4 -->
+  <div class="panel" role="tabpanel" data-panel="4" hidden>
+    <header class="ph"><span class="eb">Módulo 04 · Lectura detallada</span><h3>Unidades de significado y aspectos vividos</h3>
+      <p>Lee frase por frase: ¿qué revela sobre la experiencia? Cada unidad expresa un solo significado y lleva una paráfrasis en tercera persona y en presente, cerca de las palabras del participante, sin causas, juicios ni sensaciones que no nombró. Luego agrupa las unidades en aspectos vividos.</p>
+      <span class="autores">Van Manen (2003, cap. 4, pp. 110–113)</span><br><a class="apoyo" data-sec="5" href="#">Lectura de apoyo: Sección 5 →</a></header>
+    <div class="trabajo">
+      <div>
+        <h4 style="margin-top:0">Aspectos vividos</h4>
+        <p class="ayuda">Nómbralos con palabras cercanas a la experiencia («Protegerse al llegar», no «Ansiedad anticipatoria»).</p>
+        <div class="ted" data-table="aspectos"></div>
+        <button class="btn sec peq" type="button" data-add="aspectos">＋ Añadir aspecto</button>
+        <h4>Unidades de significado</h4>
+        <p class="ayuda">Selecciona un fragmento en el texto y pulsa «Crear unidad». El laboratorio avisa si la paráfrasis tiene primera persona, causas, juicios, tiempo pasado o vocabulario técnico. Son alertas orientativas: tú decides.</p>
+        <div class="ted" data-table="unidades"></div>
+        <button class="btn sec peq" type="button" data-add="unidades">＋ Añadir unidad a mano</button>
+      </div>
+      <div class="lado">
+        <div class="visor-cab"><b>Texto numerado</b><button class="btn peq" type="button" data-marcar="unidades">＋ Crear unidad con la selección</button></div>
+        <div class="visor" aria-label="Texto numerado"></div>
+        <p class="leyenda"><i></i>unidad de significado · <u>frase selectiva</u></p>
+        <p class="msg" data-msg="unidades"></p>
+      </div>
+    </div>
+    <details class="ia"><summary>Segunda lectura con IA (opcional)</summary>
+      <p class="ayuda" style="margin-top:10px">El laboratorio no se conecta a ninguna IA. Si quieres una segunda lectura, copia este prompt y pégalo en la herramienta que uses. Solo incluye tus paráfrasis, sin la transcripción ni el seudónimo. Úsalo solo si el consentimiento del participante lo permite; la IA propone, tú decides.</p>
+      <pre id="promptParafrasis"></pre>
+      <button class="btn sec peq" type="button" data-copiar="promptParafrasis">Copiar prompt</button>
+    </details>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="3">← Lecturas</button><button class="btn" type="button" data-go="5">Siguiente: temas →</button></div>
+  </div>
+
+  <!-- 5 -->
+  <div class="panel" role="tabpanel" data-panel="5" hidden>
+    <header class="ph"><span class="eb">Módulo 05 · Reflexión</span><h3>Temas esenciales y variación imaginativa</h3>
+      <p>Agrupa los aspectos vividos en temas candidatos, enunciados como frases que dicen algo de la experiencia. Prueba cada uno: ¿continúa siendo este fenómeno el mismo si cambiamos o eliminamos este tema en nuestra imaginación? Si deja de serlo, es esencial; si no, incidental. Los incidentales se conservan con su razón.</p>
+      <span class="autores">Van Manen (2003, cap. 4, pp. 124–126) · Bevan (2014)</span><br><a class="apoyo" data-sec="6" href="#">Lectura de apoyo: Sección 6 →</a></header>
+    <div class="ted" data-table="temas"></div>
+    <button class="btn sec peq" type="button" data-add="temas">＋ Añadir tema</button>
+    <p class="msg" id="msgTemas"></p>
+    <label class="campo" style="margin-top:14px"><span>Tensiones entre temas</span><textarea data-path="tensiones" rows="3" placeholder="Por ejemplo, el mismo momento se cuenta como feo y como agradable. ¿Cómo aparece en el texto?"></textarea></label>
+    <details class="ia"><summary>Variación imaginativa con IA (opcional)</summary>
+      <p class="ayuda" style="margin-top:10px">Este prompt solo lleva los enunciados de tus temas, sin citas del participante. Pide variaciones para pensar, no decisiones.</p>
+      <pre id="promptTemas"></pre>
+      <button class="btn sec peq" type="button" data-copiar="promptTemas">Copiar prompt</button>
+    </details>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="4">← Unidades</button><button class="btn" type="button" data-go="6">Siguiente: existenciales →</button></div>
+  </div>
+
+  <!-- 6 -->
+  <div class="panel" role="tabpanel" data-panel="6" hidden>
+    <header class="ph"><span class="eb">Módulo 06 · Reflexión</span><h3>Los cuatro existenciales</h3>
+      <p>Relee cada tema esencial con cuatro preguntas: ¿cómo se siente el lugar?, ¿qué se siente en el cuerpo?, ¿cómo se vive el tiempo?, ¿cómo se vive el vínculo con otros? Escribe evidencia con número de línea solo cuando la pregunta rinde algo; si un existencial no aparece, no lo inventes: conviértelo en pregunta. Son lentes, no casillas.</p>
+      <span class="autores">Van Manen (2003, cap. 4, pp. 119–124)</span><br><a class="apoyo" data-sec="7" href="#">Lectura de apoyo: Sección 7 →</a></header>
+    <div class="exis" id="exis"></div>
+    <p class="menos" id="menos"></p>
+    <label class="campo"><span>Pregunta al participante sobre el existencial menos presente</span><textarea data-path="pregExist" rows="2"></textarea></label>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="5">← Temas</button><button class="btn" type="button" data-go="7">Siguiente: escritura →</button></div>
+  </div>
+
+  <!-- 7 -->
+  <div class="panel" role="tabpanel" data-panel="7" hidden>
+    <header class="ph"><span class="eb">Módulo 07 · Escritura</span><h3>Anécdota, descripción temática y bitácora</h3>
+      <p>Para Van Manen escribir es el método. Escribe una anécdota de un tema esencial con solo lo que el participante dice; luego la descripción temática en una primera versión y reescríbela quitando explicaciones causales y valoraciones. Registra cada versión en la bitácora.</p>
+      <span class="autores">Van Manen (2003, cap. 5, pp. 131–137 y 143–146)</span><br><a class="apoyo" data-sec="8" href="#">Lectura de apoyo: Sección 8 →</a></header>
+    <label class="campo"><span>Tema que vas a escribir</span><select data-path="temaEscrito" id="selTemaEscrito"></select></label>
+    <label class="campo"><span>Anécdota (solo con lo que el participante dice)</span><textarea data-path="anecdota" data-chk="desc" rows="5"></textarea><small class="alerta" data-al="anecdota"></small></label>
+    <div class="dos">
+      <label class="campo"><span>Descripción temática · versión 1</span><textarea data-path="v1" data-chk="desc" rows="8"></textarea><small class="alerta" data-al="v1"></small></label>
+      <label class="campo"><span>Descripción temática · versión 2</span><textarea data-path="v2" data-chk="desc" rows="8"></textarea><small class="alerta" data-al="v2"></small></label>
+    </div>
+    <p class="msg" id="comparar"></p>
+    <h4>Bitácora de escritura</h4>
+    <div class="ted" data-table="bitacora"></div>
+    <button class="btn sec peq" type="button" data-add="bitacora">＋ Añadir entrada</button>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="6">← Existenciales</button><button class="btn" type="button" data-go="8">Siguiente: validación →</button></div>
+  </div>
+
+  <!-- 8 -->
+  <div class="panel" role="tabpanel" data-panel="8" hidden>
+    <header class="ph"><span class="eb">Módulo 08 · Validación</span><h3>Círculo validador y criterios de calidad</h3>
+      <p>Una buena descripción es validada por la experiencia vivida: el participante puede hacer un gesto de afirmación ante ella. Devuélvesela y discútela en el seminario; es un diálogo, no la confirmación de una hipótesis. Registra ajustes y desacuerdos y evalúa el texto con los cuatro criterios.</p>
+      <span class="autores">Van Manen (2003, cap. 1, pp. 42–45; cap. 6, pp. 165–169) · Sundler et al. (2019)</span><br><a class="apoyo" data-sec="8" href="#">Lectura de apoyo: Sección 8 →</a></header>
+    <h4 style="margin-top:0">Preguntas para el círculo validador (3 a 5)</h4>
+    <p class="ayuda">Incluye una sobre la variación imaginativa y otra sobre el existencial menos presente.</p>
+    <div class="ted" data-table="preguntas"></div>
+    <button class="btn sec peq" type="button" data-add="preguntas">＋ Añadir pregunta</button>
+    <label class="campo" style="margin-top:14px"><span>Respuestas del participante y del seminario: ajustes y desacuerdos</span><textarea data-path="respuestas" rows="4"></textarea></label>
+    <h4>Criterios de calidad</h4>
+    <div class="ted" data-table="criterios"></div>
+    <label class="campo"><span>Memo de límites: qué no permite afirmar este análisis</span><textarea data-path="limites" rows="3"></textarea></label>
+    <label class="campo"><span>Pregunta pedagógica para el lector docente</span><textarea data-path="pedagogica" rows="2" placeholder="¿Qué viven mis estudiantes cuando…?"></textarea></label>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="7">← Escritura</button><button class="btn" type="button" data-go="9">Siguiente: informe →</button></div>
+  </div>
+
+  <!-- 9 -->
+  <div class="panel" role="tabpanel" data-panel="9" hidden>
+    <header class="ph"><span class="eb">Módulo 09 · Informe</span><h3>Informe en Word y respaldo</h3>
+      <p>El informe reúne los productos del proyecto final, con marca de agua del laboratorio y la licencia en el pie. Se genera en tu navegador.</p></header>
+    <div class="conteo" id="conteo"></div>
+    <ul class="lista-prod" id="productos"></ul>
+    <label class="check"><input type="checkbox" data-path="anexo"> Incluir el texto numerado como anexo del informe</label>
+    <div class="botones"><button class="btn" type="button" id="btnWord">⬇ Descargar informe en Word</button><span class="msg" id="estadoDoc"></span></div>
+    <h4>Respaldo</h4>
+    <p class="ayuda">El navegador puede borrar lo guardado (modo privado, limpieza de datos). Descarga un respaldo y recupéralo aquí o en otro equipo.</p>
+    <div class="botones">
+      <button class="btn sec peq" type="button" id="btnJson">Descargar respaldo (.json)</button>
+      <label class="btn sec peq" style="cursor:pointer">Recuperar un respaldo<input type="file" id="fileJson" accept="application/json,.json" hidden></label>
+      <button class="btn peligro peq" type="button" id="btnBorrar">Borrar todo mi trabajo</button>
+    </div>
+    <p class="msg" id="msgResp"></p>
+    <div class="nav-pasos"><button class="btn sec" type="button" data-go="8">← Validación</button><span></span></div>
+  </div>
+</div></section>
+
+<section class="bloque" id="fuentes"><div class="wrap">
+  <h2>Lecturas de apoyo</h2>
+  <p class="sub">Las ocho secciones del curso original quedan como referencia de cada módulo.</p>
+  <ul class="lecturas" id="lecturas"></ul>
+  <h2 style="font-size:1.4rem">Fuentes</h2>
+  <div class="refs">
+    <p>Bevan, M. T. (2014). A method of phenomenological interviewing. <i>Qualitative Health Research, 24</i>(1), 136–144. <a href="https://doi.org/10.1177/1049732313519710">https://doi.org/10.1177/1049732313519710</a></p>
+    <p>Errasti-Ibarrondo, B., Jordán, J. A., Díez-Del-Corral, M. P., y Arantzamendi, M. (2018). Conducting phenomenological research: Rationalizing the methods and rigour of the phenomenology of practice. <i>Journal of Advanced Nursing, 74</i>(7), 1723–1734. <a href="https://doi.org/10.1111/jan.13569">https://doi.org/10.1111/jan.13569</a></p>
+    <p>Sundler, A. J., Lindberg, E., Nilsson, C., y Palmér, L. (2019). Qualitative thematic analysis based on descriptive phenomenology. <i>Nursing Open, 6</i>(3), 733–739. <a href="https://doi.org/10.1002/nop2.275">https://doi.org/10.1002/nop2.275</a></p>
+    <p>Van Manen, M. (2003). <i>Investigación educativa y experiencia vivida: Ciencia humana para una pedagogía de la acción y la sensibilidad</i>. Idea Books.</p>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><b>Laboratorio de análisis fenomenológico</b> · Aplicación desarrollada por Elver Chaparro Cardozo · Seminario de trabajo de grado, Maestría en Educación, UPTC. <a href="https://elverchaparrolab.wordpress.com/">Sitio principal</a> · <a href="https://elverchaparrolab.wordpress.com/metodologias/">Metodologías</a> · <a href="https://investigium.github.io/ruta-investigacion-ia/">Ruta de investigación con IA</a> · <a href="https://elverchaparrolab.github.io/elver.chaparro-LAB/static/acd.html">Laboratorio ACD</a></p>
+  <div class="lic"><span class="cc">CC BY · NC · SA</span><p style="margin:0"><b>Laboratorio de análisis fenomenológico</b> · Desarrollado por Elver Chaparro Cardozo · © 2026 · Algunos derechos reservados, bajo licencia <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional</a>. Puede copiarlo y adaptarlo citando al autor, sin fines comerciales y compartiendo bajo la misma licencia. El análisis que escribas es tuyo.</p></div>
+</div></footer>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* Tema claro y oscuro */
+(function(){const r=document.documentElement;let t=null;try{t=localStorage.getItem("fenomenologia-tema")}catch(e){}if(t)r.dataset.theme=t;
+$("#tema").addEventListener("click",()=>{const oscuro=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=oscuro?"light":"dark";try{localStorage.setItem("fenomenologia-tema",r.dataset.theme)}catch(e){}})})();
+
+/* Lecturas de apoyo: las secciones del curso publicadas con Quartz en este mismo sitio */
+const BASE="./40-cursos/maestría-en-educación.---seminario-trabajo-de-grado/mooc---análisis-fenomenológico/";
+const SECS=[["202610290101-sección-1---qué-busca-el-análisis-fenomenológico","Qué busca el análisis fenomenológico"],["202610290102-sección-2---pregunta-fenomenológica-y-presuposiciones","Pregunta fenomenológica y presuposiciones"],["202610290103-sección-3---producir-y-revisar-el-material-experiencial","Producir y revisar el material experiencial"],["202610290104-sección-4---lectura-holística-y-lectura-selectiva","Lectura holística y lectura selectiva"],["202610290105-sección-5---lectura-detallada,-unidades-de-significado-y-aspectos-vividos","Lectura detallada, unidades y aspectos vividos"],["202610290106-sección-6---temas-esenciales-y-variación-imaginativa","Temas esenciales y variación imaginativa"],["202610290107-sección-7---los-cuatro-existenciales","Los cuatro existenciales"],["202610290108-sección-8---escritura,-círculo-validador-y-calidad","Escritura, círculo validador y calidad"]];
+const secURL=n=>BASE+encodeURI(SECS[n-1][0]);
+$$("a[data-sec]").forEach(a=>{a.href=secURL(+a.dataset.sec)});
+$("#lecturas").innerHTML=SECS.map((s,i)=>`<li><a href="${secURL(i+1)}"><b>S${i+1}</b>${esc(s[1])}</a></li>`).join("")+`<li><a href="${BASE+encodeURI("rúbrica-y-plantillas")}"><b>R</b>Rúbrica del proyecto final</a></li>`;
+
+/* ---------- Módulos (explicación, autores y ejemplo) ---------- */
+const MODULOS=[
+ {n:"01",nv:"Orientación",t:"Pregunta y presuposiciones",paso:1,autores:"Van Manen (2003, cap. 2) · Errasti-Ibarrondo et al. (2018)",
+  texto:"Orienta el análisis hacia una experiencia vivida. La pregunta pide «cómo es vivir…», no causas, frecuencias ni juicios. El memo de presuposiciones hace visible lo que ya crees para que el texto pueda corregirlo.",
+  puntos:["Alerta si la pregunta empieza por «¿por qué?» o pide cantidades","Tabla de presuposiciones ligadas a pasajes del texto"],
+  ejemplo:"<b>Pregunta:</b> ¿Cómo se vive la primera clase a cargo de un grupo cuando se es docente novata?<br><b>Presuposición:</b> «la primera clase se vive sobre todo como miedo» → el texto dice <mark>«agradecida»</mark> (L. 15).",
+  nota:"La presuposición queda corregida por el texto: por eso se escribe antes de leer."},
+ {n:"02",nv:"Material",t:"Material experiencial",paso:2,autores:"Van Manen (2003, cap. 3) · Bevan (2014)",
+  texto:"Pegas la transcripción o el protocolo escrito y el laboratorio numera las líneas. La revisión con las seis sugerencias de Van Manen muestra qué tiene el relato y qué falta preguntar.",
+  puntos:["Suceso particular, desde dentro, ejemplo intenso, cuerpo, sin causas, sin embellecer","Fragmentos dudosos declarados y excluidos como evidencia"],
+  ejemplo:"<b>Cuerpo, olores, sonidos:</b> sí · <mark>«oliendo a límpido»</mark> (L. 4), <mark>«las manos frías»</mark> (L. 9).<br><b>Pendiente:</b> ¿qué sentía al saludar en la puerta?",
+  nota:"Lo que falta no se completa: se pregunta en una segunda conversación."},
+ {n:"03",nv:"Lectura",t:"Holística y selectiva",paso:3,autores:"Van Manen (2003, cap. 4, pp. 110–113) · Sundler et al. (2019)",
+  texto:"Una frase de sentido para todo el texto, una frase por incidente y las frases que revelan la experiencia, marcadas directamente sobre el texto numerado.",
+  puntos:["Alerta si la frase holística introduce causas («porque»)","Las frases selectivas quedan subrayadas en el visor"],
+  ejemplo:"Yo llevaba el cuaderno de planeación apretado contra el pecho, <mark>como un escudo</mark>. (L. 5)",
+  nota:"Frase selectiva: muestra el cuerpo que se protege antes de entrar."},
+ {n:"04",nv:"Lectura",t:"Unidades y aspectos vividos",paso:4,autores:"Van Manen (2003, cap. 4)",
+  texto:"Seleccionas un fragmento y se crea la unidad con sus líneas. Escribes la paráfrasis y la asignas a un aspecto vivido. El laboratorio revisa cada paráfrasis mientras escribes.",
+  puntos:["Alertas: primera persona, causas, juicios, pasado, vocabulario técnico","Cada paráfrasis se rastrea hasta sus líneas"],
+  ejemplo:"<b>L. 12–13</b> «Y se callaron. No por mí, por ella.»<br>→ El grupo se calla por una estudiante, no por ella. · <mark>ASP-03 Autoridad prestada</mark>",
+  nota:"«Clara carece de liderazgo» sería un juicio con vocabulario técnico."},
+ {n:"05",nv:"Reflexión",t:"Temas y variación imaginativa",paso:5,autores:"Van Manen (2003, cap. 4, pp. 124–126) · Bevan (2014)",
+  texto:"Agrupas aspectos en temas enunciados como frases y escribes la variación imaginativa completa. La decisión (esencial, provisional o incidental) queda a la vista, también la de los temas descartados.",
+  puntos:["Alerta si el tema es una etiqueta de una o dos palabras","Los incidentales pasan al informe como temas descartados"],
+  ejemplo:"<b>T3.</b> El salón se vuelve propio en el encuentro con los estudiantes.<br><b>Variación:</b> si no hubiera vuelto a saludar en la puerta, ¿sería igual? <mark>No</mark> → esencial.",
+  nota:"Es un recurso heurístico, no una prueba: hay que escribir el razonamiento."},
+ {n:"06",nv:"Reflexión",t:"Los cuatro existenciales",paso:6,autores:"Van Manen (2003, cap. 4, pp. 119–124)",
+  texto:"Cada tema esencial se relee con espacio, cuerpo, tiempo y relación vividos. El laboratorio detecta el existencial menos presente para convertirlo en pregunta.",
+  puntos:["Una tarjeta por tema esencial","Existencial dominante y por qué"],
+  ejemplo:"<b>Espacio:</b> la puerta frente al tablero (L. 25–26) · <b>Relación:</b> <mark>saludar uno por uno</mark> (L. 25)",
+  nota:"El lugar cambia cuando cambia el vínculo."},
+ {n:"07",nv:"Escritura",t:"Escritura y reescritura",paso:7,autores:"Van Manen (2003, cap. 5)",
+  texto:"Anécdota, descripción temática en dos versiones y bitácora. Al comparar las versiones, el laboratorio cuenta las explicaciones causales que quedan.",
+  puntos:["La anécdota usa solo lo que el participante dice","Bitácora con fecha, qué cambió y por qué"],
+  ejemplo:"<b>v1:</b> Ella llega insegura <mark>debido a</mark> la falta de preparación…<br><b>v2:</b> Entra con el cuaderno contra el pecho y nadie la ve.",
+  nota:"La reescritura cambia la explicación por la vivencia."},
+ {n:"08",nv:"Validación",t:"Círculo validador y calidad",paso:8,autores:"Van Manen (2003, caps. 1 y 6) · Sundler et al. (2019)",
+  texto:"Preguntas para devolver la descripción al participante, registro de ajustes y desacuerdos, y evaluación con los criterios orientado, firme, rico y profundo.",
+  puntos:["Memo de límites: qué no permite afirmar el análisis","Pregunta pedagógica para el lector docente"],
+  ejemplo:"<b>Firme:</b> <mark>en desarrollo</mark>: T2 depende de la validación con Clara.",
+  nota:"El reconocimiento del participante es el criterio central."},
+ {n:"09",nv:"Informe",t:"Informe en Word",paso:9,autores:"Exportación con trazabilidad",
+  texto:"Un documento .docx con los siete productos del proyecto final, tablas, marca de agua del laboratorio y licencia en el pie. Opcionalmente, el texto numerado como anexo.",
+  puntos:["Se genera en el navegador: nada se sube","Respaldo .json para continuar en otro equipo"],
+  ejemplo:"<b>1.</b> Pregunta y presuposiciones · <b>3.</b> Lecturas · <b>5.</b> Temas esenciales y descartados · <b>8.</b> Círculo validador",
+  nota:"Listo para entregar en el seminario o anexar a la tesis."},
+ {n:"10",nv:"IA opcional",t:"Segunda lectura con IA",paso:4,autores:"IA con criterio",
+  texto:"Prompts para copiar en la IA que uses, si quieres una segunda lectura de tus paráfrasis o de tus temas. El laboratorio no llama a ninguna IA y los prompts no incluyen la transcripción.",
+  puntos:["Solo paráfrasis o enunciados de temas","La IA propone; la decisión y la escritura son tuyas"],
+  ejemplo:"«Revisa estas paráfrasis: ¿están en tercera persona y presente? ¿<mark>añaden causas</mark> o juicios?…»",
+  nota:"Úsala solo si el consentimiento del participante lo permite."}
+];
+const det=$("#detalle"), cont=$("#mods");
+function mostrarModulo(m){cont.querySelectorAll(".mod").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.n===m.n)));
+ det.innerHTML=`<div><h3>${m.t}</h3><p class="autores">${m.nv} · ${m.autores}</p><p>${m.texto}</p><ul>${m.puntos.map(p=>`<li>${p}</li>`).join("")}</ul><button class="ir" type="button" data-go="${m.paso}">Trabajar este módulo en el laboratorio →</button></div><div class="ejemplo"><div class="lbl">Ejemplo · relato inventado</div><div>${m.ejemplo}</div><div class="nota">${m.nota}</div></div>`}
+MODULOS.forEach(m=>{const b=document.createElement("button");b.className="mod";b.type="button";b.dataset.n=m.n;b.innerHTML=`<span><span class="n">${m.n}</span><span class="nv">${m.nv}</span></span><span class="t">${m.t}</span>`;b.addEventListener("click",()=>mostrarModulo(m));cont.appendChild(b)});
+mostrarModulo(MODULOS[0]);
+
+/* ---------- Estado ---------- */
+const KEY="fenomenologia-lab-v1";
+const SUGERENCIAS=[["Sin causas ni generalizaciones","Describe tal como se vive"],["Desde dentro","Ánimo, sentimientos, emociones"],["Suceso particular","Un momento concreto"],["Ejemplo intenso o «primera vez»",""],["Cuerpo, olores, sonidos",""],["Sin embellecer",""]];
+const CRITERIOS=[["Orientado","¿Responde a la pregunta y a la práctica pedagógica?"],["Firme","¿Las interpretaciones se rastrean hasta el texto?"],["Rico","¿Hay descripción concreta?"],["Profundo","¿Se conserva la complejidad del sentido?"]];
+function vacio(){return{v:1,meta:{nombre:"",seudonimo:"",tipo:""},pregunta:{q:"",importa:"",fuera:""},presup:[{},{},{},{}],texto:"",dudosos:"",revision:SUGERENCIAS.map(()=>({})),holistica:"",incidentes:[{}],selectivas:[],aspectos:[{id:"ASP-01",n:""}],unidades:[],temas:[{}],tensiones:"",pregExist:"",temaEscrito:"",anecdota:"",v1:"",v2:"",bitacora:[],preguntas:[{},{},{}],respuestas:"",criterios:CRITERIOS.map(()=>({})),limites:"",pedagogica:"",anexo:true}}
+let S=vacio(), puedeGuardar=true;
+function normalizar(o){const b=vacio();if(!o||typeof o!=="object")return b;for(const k in b){if(o[k]===undefined)continue;if(Array.isArray(b[k]))b[k]=Array.isArray(o[k])?o[k].map(x=>x&&typeof x==="object"?x:{}):b[k];else if(b[k]&&typeof b[k]==="object")b[k]=Object.assign(b[k],typeof o[k]==="object"?o[k]:{});else b[k]=o[k]}
+ while(b.revision.length<6)b.revision.push({});while(b.criterios.length<4)b.criterios.push({});return b}
+try{const raw=localStorage.getItem(KEY);if(raw)S=normalizar(JSON.parse(raw))}catch(e){puedeGuardar=false}
+let tGuardar=null;
+function guardar(){clearTimeout(tGuardar);tGuardar=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S));puedeGuardar=true;$("#guardado").textContent="Guardado en este navegador"}catch(e){puedeGuardar=false;$("#guardado").textContent="Este navegador no permite guardar: descarga el respaldo"}},250)}
+function getP(path){return path.split(".").reduce((o,k)=>o==null?undefined:o[k],S)}
+function setP(path,val){const ks=path.split(".");let o=S;for(let i=0;i<ks.length-1;i++){if(o[ks[i]]==null||typeof o[ks[i]]!=="object")o[ks[i]]={};o=o[ks[i]]}o[ks[ks.length-1]]=val}
+
+/* ---------- Alertas orientativas (reproducibles, sin IA) ---------- */
+const W=p=>new RegExp(`(?<!\\p{L})(?:${p})(?!\\p{L})`,"iu");
+const RX={
+ primera:W("yo|me|mi|mis|conmigo|nosotros|nosotras|nos|nuestro|nuestra"),
+ causa:W("porque|debido a|ya que|por eso|a causa de|puesto que|dado que|por lo tanto|lo cual demuestra"),
+ juicio:W("bien|mal|correcto|incorrecto|irresponsable|irresponsabilidad|adecuad[oa]|inadecuad[oa]|deber[ií]a|exitos[oa]|fracas[oa]"),
+ pasado:W("\\p{L}{2,}(?:aron|ieron|ábamos|íamos|aba|abas|ió)|fue|fueron|estuvo|tuvo|hizo|dijo"),
+ tecnico:W("catarsis|resiliencia|afrontamiento|grupo de pares|pares|ansiedad|estrés|autoeficacia|empoderamiento|mecanismo|dimensión|factor|variable|competencia|liderazgo|habilidades socioemocionales|anticipatoria|disonancia")
+};
+function hallar(rx,t){const m=t.match(rx);return m?`«${m[0]}»`:""}
+function chequeo(tipo,t){t=String(t||"").trim();if(!t)return[];const a=[];let h;
+ if(tipo==="parafrasis"){if(h=hallar(RX.primera,t))a.push(`primera persona ${h}: escribe en tercera persona`);if(h=hallar(RX.pasado,t))a.push(`posible pasado ${h}: la paráfrasis va en presente`)}
+ if(tipo==="parafrasis"||tipo==="desc"){if(h=hallar(RX.causa,t))a.push(`explicación causal ${h}: ¿la dijo el participante?`);if(h=hallar(RX.juicio,t))a.push(`juicio ${h}: describe, no evalúes`);if(h=hallar(RX.tecnico,t))a.push(`vocabulario técnico ${h}: acércate a las palabras del participante`)}
+ if(tipo==="tema"){const n=t.split(/\s+/).length;if(n<=3)a.push("parece una etiqueta: enúncialo como frase que diga algo de la experiencia");if(h=hallar(RX.causa,t))a.push(`explicación causal ${h}`)}
+ if(tipo==="pregunta"){if(/^¿?\s*por\s*qu[eé]/i.test(t))a.push("pide causas: pregunta por cómo se vive la experiencia");if(/cu[aá]nt[oa]s?\b|frecuencia|influye|efecto|relación entre/i.test(t))a.push("pide cantidades o relaciones entre variables");if(/deber[ií]a|correct|bien o mal/i.test(t))a.push("evalúa: la pregunta fenomenológica no juzga");if(!/c[oó]mo/i.test(t)&&!a.length)a.push("¿nombra una vivencia? Suele formularse con «cómo es vivir…» o «cómo se vive…»")}
+ return a}
+const ALERTA_TIPO={"pregunta.q":"pregunta",holistica:"desc",anecdota:"desc",v1:"desc",v2:"desc"};
+function pintarAlerta(el,tipo,val){const a=chequeo(tipo,val);el.textContent=a.length?"⚠ "+a.join(" · "):""}
+
+/* ---------- Tablas editables ---------- */
+const asps=()=>S.aspectos.filter(a=>(a.id||"").trim());
+const TABLES={
+ presup:{cols:[{k:"c",l:"Presuposición",t:"ta",w:"2fr"},{k:"o",l:"¿Mía, social o del texto?",t:"sel",opts:["","Mía","Social","Del texto"],w:"1fr"},{k:"l",l:"Pasaje (líneas)",t:"in",w:".7fr"},{k:"d",l:"Qué dice el texto",t:"ta",w:"2fr"}],vacio:"Añade tus creencias sobre el fenómeno."},
+ revision:{fijo:SUGERENCIAS,cols:[{k:"_",l:"Sugerencia",t:"lbl",w:"1.3fr"},{k:"v",l:"¿Se cumple?",t:"sel",opts:["","Sí","En parte","No"],w:".8fr"},{k:"e",l:"Evidencia (líneas)",t:"ta",w:"1.5fr"},{k:"q",l:"Qué preguntar en una segunda conversación",t:"ta",w:"1.6fr"}]},
+ incidentes:{cols:[{k:"n",l:"Incidente",t:"in",w:"1.2fr",ph:"INC-1 · …"},{k:"l",l:"Líneas",t:"in",w:".55fr"},{k:"f",l:"Frase holística",t:"ta",w:"2fr",chk:"desc"}],nuevo:i=>({n:`INC-${i+1} · `})},
+ selectivas:{cols:[{k:"t",l:"Frase (literal)",t:"ta",w:"1.6fr"},{k:"l",l:"Línea",t:"in",w:".5fr"},{k:"p",l:"Por qué revela la experiencia",t:"ta",w:"1.6fr"}],vacio:"Todavía no hay frases selectivas. Selecciona una frase en el texto numerado."},
+ aspectos:{cols:[{k:"id",l:"Código",t:"in",w:".6fr"},{k:"n",l:"Aspecto vivido",t:"in",w:"2fr",chk:"desc"}],nuevo:i=>({id:"ASP-"+String(i+1).padStart(2,"0"),n:""})},
+ unidades:{cols:[{k:"l",l:"Líneas",t:"in",w:".55fr"},{k:"t",l:"Fragmento literal",t:"ta",w:"1.5fr"},{k:"p",l:"Paráfrasis (3.ª persona, presente)",t:"ta",w:"1.6fr",chk:"parafrasis"},{k:"a",l:"Aspecto vivido",t:"asp1",w:"1fr"}],vacio:"Todavía no hay unidades. Selecciona un fragmento en el texto numerado y pulsa «Crear unidad»."},
+ temas:{cols:[{k:"e",l:"Tema (enunciado como frase)",t:"ta",w:"1.5fr",chk:"tema",ph:"T1. …"},{k:"asp",l:"Aspectos",t:"aspN",w:"1.1fr"},{k:"v",l:"Variación imaginativa (respuesta completa)",t:"ta",w:"1.9fr",ph:"Si quitamos o cambiamos… ¿sigue siendo la misma experiencia? Porque…"},{k:"d",l:"Decisión",t:"sel",opts:["","Esencial","Esencial provisional","Incidental"],w:".9fr"}]},
+ bitacora:{cols:[{k:"f",l:"Fecha",t:"date",w:".8fr"},{k:"c",l:"Qué cambió",t:"ta",w:"1.6fr"},{k:"p",l:"Por qué",t:"ta",w:"1.6fr"}],nuevo:()=>({f:new Date().toISOString().slice(0,10)}),vacio:"Añade una entrada cada vez que reescribas."},
+ preguntas:{cols:[{k:"t",l:"Pregunta",t:"ta",w:"1fr"}]},
+ criterios:{fijo:CRITERIOS,cols:[{k:"_",l:"Criterio",t:"lbl",w:"1.4fr"},{k:"n",l:"Nivel",t:"sel",opts:["","Logrado","En desarrollo","Inicial"],w:".9fr"},{k:"x",l:"Por qué",t:"ta",w:"2fr"}]}
+};
+function campo(col,path,val,key,i){
+ if(col.t==="lbl"){const f=TABLES[key].fijo[i];return`<div class="lbl">${esc(f[0])}${f[1]?`<small>${esc(f[1])}</small>`:""}</div>`}
+ const ph=col.ph?` placeholder="${esc(col.ph)}"`:"";const al=col.chk?`<small class="alerta" data-al="${path}"></small>`:"";
+ const lab=` aria-label="${esc(col.l)}"`;const chk=col.chk?` data-chk="${col.chk}"`:"";
+ if(col.t==="ta")return`<textarea data-path="${path}"${chk}${ph}${lab} rows="2"></textarea>${al}`;
+ if(col.t==="in")return`<input type="text" data-path="${path}"${chk}${ph}${lab}>${al}`;
+ if(col.t==="date")return`<input type="date" data-path="${path}"${lab}>`;
+ if(col.t==="sel")return`<select data-path="${path}"${lab}>${col.opts.map(o=>`<option value="${esc(o)}">${o?esc(o):"Elige…"}</option>`).join("")}</select>`;
+ if(col.t==="asp1")return`<select data-path="${path}"${lab}><option value="">Elige…</option>${asps().map(a=>`<option value="${esc(a.id)}">${esc(a.id)} ${esc(a.n||"")}</option>`).join("")}</select>`;
+ if(col.t==="aspN"){const sel=Array.isArray(val)?val:[];const L=asps();return L.length?`<div class="chips" role="group"${lab}>${L.map(a=>`<label title="${esc(a.n||"")}"><input type="checkbox" data-multi="${path}" value="${esc(a.id)}"${sel.includes(a.id)?" checked":""}>${esc(a.id)}</label>`).join("")}</div>`:`<span class="ayuda">Primero crea aspectos vividos (módulo 4).</span>`}
+ return""}
+function renderTable(key){const el=$(`[data-table="${key}"]`);if(!el)return;const T=TABLES[key];const rows=S[key];
+ const cols=T.cols.map(c=>c.w).join(" ")+(T.fijo?"":" 34px");el.style.setProperty("--cols",cols);
+ let h=`<div class="cab" aria-hidden="true">${T.cols.map(c=>`<span>${esc(c.l)}</span>`).join("")}${T.fijo?"":"<span></span>"}</div>`;
+ if(!rows.length)h=`<p class="vacio">${esc(T.vacio||"Sin filas todavía.")}</p>`;
+ rows.forEach((r,i)=>{h+=`<div class="fila">${T.cols.map(c=>`<div class="celda"><small>${esc(c.l)}</small>${campo(c,`${key}.${i}.${c.k}`,r[c.k],key,i)}</div>`).join("")}${T.fijo?"":`<button class="quitar" type="button" data-quitar="${key}.${i}" aria-label="Quitar fila ${i+1}" title="Quitar fila">×</button>`}</div>`});
+ el.innerHTML=h;llenar(el)}
+function llenar(root){root.querySelectorAll("[data-path]").forEach(e=>{const v=getP(e.dataset.path);if(e.type==="checkbox")e.checked=!!v;else e.value=v??"";if(e.dataset.chk)pintarAlertaDe(e)})}
+function pintarAlertaDe(e){const p=e.dataset.path;const al=document.querySelector(`[data-al="${CSS.escape(p)}"]`);if(al)pintarAlerta(al,e.dataset.chk,e.value)}
+
+/* ---------- Visor del texto numerado ---------- */
+const lineas=()=>String(S.texto||"").replace(/\r/g,"").split("\n");
+function rango(s){const m=String(s||"").match(/(\d+)(?:\s*[–\-—a]\s*(\d+))?/);if(!m)return null;const a=+m[1],b=m[2]?+m[2]:a;return[Math.min(a,b),Math.max(a,b)]}
+function renderVisor(){const L=lineas();const tieneTexto=String(S.texto||"").trim().length>0;
+ const tags=L.map(()=>[]),u=L.map(()=>false),s=L.map(()=>false);
+ S.unidades.forEach((x,i)=>{const r=rango(x.l);if(!r)return;for(let k=r[0];k<=r[1];k++)if(k>=1&&k<=L.length){u[k-1]=true;if(k===r[0])tags[k-1].push("U"+(i+1))}});
+ S.selectivas.forEach((x,i)=>{const r=rango(x.l);if(!r)return;for(let k=r[0];k<=r[1];k++)if(k>=1&&k<=L.length){s[k-1]=true;if(k===r[0])tags[k-1].push("S"+(i+1))}});
+ const html=tieneTexto?L.map((t,i)=>`<div class="ln${u[i]?" u":""}${s[i]?" s":""}" data-line="${i+1}" data-tags="${tags[i].join(" ")}"><span class="tx">${esc(t)||"&nbsp;"}</span></div>`).join(""):`<p class="vacio">Pega tu texto en el módulo 2 para verlo aquí con las líneas numeradas.</p>`;
+ $$(".visor").forEach(v=>{const y=v.scrollTop;v.innerHTML=html;v.scrollTop=y})}
+let ultimaSel=null;
+document.addEventListener("selectionchange",()=>{const sel=getSelection();if(!sel||sel.isCollapsed)return;const t=sel.toString().replace(/\s+/g," ").trim();if(!t)return;
+ const ln=n=>(n&&(n.nodeType===1?n:n.parentElement))?.closest?.(".visor .ln");const a=ln(sel.anchorNode),b=ln(sel.focusNode);if(!a||!b)return;
+ const x=+a.dataset.line,y=+b.dataset.line;ultimaSel={t,l:x===y?String(x):`${Math.min(x,y)}–${Math.max(x,y)}`,at:Date.now()}});
+function marcar(key){const msg=$(`[data-msg="${key}"]`);if(!ultimaSel||Date.now()-ultimaSel.at>120000){msg.textContent="Selecciona primero un fragmento en el texto numerado.";return}
+ if(key==="unidades")S.unidades.push({l:ultimaSel.l,t:ultimaSel.t,p:"",a:""});else S.selectivas.push({t:ultimaSel.t,l:ultimaSel.l,p:""});
+ const n=S[key].length;ultimaSel=null;getSelection()?.removeAllRanges();renderTable(key);renderVisor();cambio();
+ msg.textContent=key==="unidades"?`Unidad U${n} creada. Escribe su paráfrasis.`:`Frase S${n} marcada. Anota por qué revela la experiencia.`;
+ const f=$(`[data-table="${key}"]`).querySelectorAll(".fila");const last=f[f.length-1];if(last){last.scrollIntoView({block:"nearest",behavior:"smooth"});const q=last.querySelector(key==="unidades"?`[data-path="unidades.${n-1}.p"]`:`[data-path="selectivas.${n-1}.p"]`);q&&q.focus({preventScroll:true})}}
+$$("[data-marcar]").forEach(b=>{b.addEventListener("mousedown",e=>e.preventDefault());b.addEventListener("click",()=>marcar(b.dataset.marcar))});
+
+/* ---------- Existenciales ---------- */
+const EXIS=[["esp","Espacio vivido","¿cómo se siente el lugar?"],["cue","Cuerpo vivido","¿qué se siente en el cuerpo?"],["tie","Tiempo vivido","¿cómo se vive el tiempo?"],["rel","Relación vivida","¿cómo se vive el vínculo con otros?"]];
+const esenciales=()=>S.temas.map((t,i)=>[t,i]).filter(([t])=>t.d==="Esencial"||t.d==="Esencial provisional");
+function renderExis(){const E=esenciales();const el=$("#exis");
+ if(!E.length){el.innerHTML=`<p class="ayuda">Marca al menos un tema como esencial en el módulo 5 para relerlo aquí.</p>`;$("#menos").textContent="";return}
+ el.innerHTML=E.map(([t,i],k)=>`<div class="ex-card"><h5>T${k+1}. ${esc(t.e||"(tema sin enunciar)")}<small>${esc(t.d)}</small></h5><div class="ex-grid">${EXIS.map(([c,n,q])=>`<label><span>${n} <em>· ${q}</em></span><textarea rows="2" data-path="temas.${i}.ex.${c}" placeholder="Evidencia con líneas, o déjalo vacío"></textarea></label>`).join("")}<label><span>Existencial dominante</span><select data-path="temas.${i}.ex.dom"><option value="">Elige…</option>${["Espacio vivido","Cuerpo vivido","Tiempo vivido","Relación vivida","Espacio y tiempo","Espacio y relación","Cuerpo y espacio","Relación y tiempo","Cuerpo y relación"].map(o=>`<option>${o}</option>`).join("")}</select></label><label><span>Por qué</span><textarea rows="2" data-path="temas.${i}.ex.por"></textarea></label></div></div>`).join("");
+ llenar(el);menosPresente()}
+function menosPresente(){const E=esenciales();if(!E.length)return;const c=EXIS.map(([k,n])=>[n,E.filter(([t])=>((t.ex||{})[k]||"").trim()).length]);const min=Math.min(...c.map(x=>x[1]));const L=c.filter(x=>x[1]===min).map(x=>x[0].toLowerCase());
+ $("#menos").innerHTML=min===E.length?`<span class="ok">Los cuatro existenciales tienen evidencia en todos los temas. Revisa que no sean casillas llenadas por llenar.</span>`:`Existencial menos presente: <b>${esc(L.join(", "))}</b> (${min} de ${E.length} temas). No lo inventes: conviértelo en pregunta para el participante.`}
+
+/* ---------- Escritura ---------- */
+function renderTemaEscrito(){const s=$("#selTemaEscrito");const E=esenciales();s.innerHTML=`<option value="">Elige un tema esencial…</option>`+E.map(([t,i],k)=>`<option value="${i}">T${k+1}. ${esc((t.e||"").slice(0,90))}</option>`).join("");s.value=S.temaEscrito??""}
+function comparar(){const c=t=>(String(t||"").match(new RegExp(RX.causa.source,"giu"))||[]).length;const w=t=>String(t||"").trim().split(/\s+/).filter(Boolean).length;
+ if(!S.v1&&!S.v2){$("#comparar").textContent="";return}
+ $("#comparar").textContent=`Versión 1: ${w(S.v1)} palabras, ${c(S.v1)} explicaciones causales · Versión 2: ${w(S.v2)} palabras, ${c(S.v2)} explicaciones causales.`}
+
+/* ---------- Prompts opcionales para IA (sin datos del participante) ---------- */
+function prompts(){const P=S.unidades.map((u,i)=>`U${i+1}. ${(u.p||"").trim()}`).filter(x=>!/^U\d+\.\s*$/.test(x));
+ $("#promptParafrasis").textContent=`Actúa como revisor metodológico de un análisis fenomenológico hermenéutico (Van Manen). No tienes acceso a la transcripción y no debes inventarla.
+Revisa cada paráfrasis con estos criterios: 1) tercera persona y presente; 2) sin causas, juicios ni sensaciones añadidas; 3) sin vocabulario técnico; 4) un solo significado por unidad.
+Para cada una responde: cumple / revisar, y en caso de revisar, explica el problema en una línea y propone una versión más cercana a la vivencia. No agrupes ni interpretes temas.
+
+${P.length?P.join("\n"):"(Escribe primero tus paráfrasis en el módulo 4.)"}`;
+ const T=S.temas.filter(t=>(t.e||"").trim()).map((t,i)=>`T${i+1}. ${t.e.trim()}`);
+ $("#promptTemas").textContent=`Estoy haciendo un análisis fenomenológico hermenéutico (Van Manen). Para cada tema, propón dos o tres variaciones imaginativas: cambios o supresiones que me ayuden a preguntar si el fenómeno seguiría siendo el mismo sin ese tema. No decidas si el tema es esencial; formula solo preguntas del tipo «¿Seguiría siendo la misma experiencia si…?». No inventes datos del participante.
+
+${T.length?T.join("\n"):"(Enuncia primero tus temas en el módulo 5.)"}`}
+$$("[data-copiar]").forEach(b=>b.addEventListener("click",async()=>{const old=b.textContent;try{await navigator.clipboard.writeText($("#"+b.dataset.copiar).textContent);b.textContent="Copiado"}catch(e){b.textContent="Selecciona el texto y cópialo"}setTimeout(()=>b.textContent=old,2000)}));
+
+/* ---------- Progreso ---------- */
+const lleno=v=>String(v??"").trim().length>0;
+function estadoPasos(){const E=esenciales();return{
+ 1:lleno(S.pregunta.q)&&S.presup.filter(p=>lleno(p.c)).length>=1,
+ 2:lineas().filter(lleno).length>=5&&S.revision.filter(r=>lleno(r.v)).length>=3,
+ 3:lleno(S.holistica)&&S.incidentes.some(x=>lleno(x.f))&&S.selectivas.length>0,
+ 4:S.unidades.filter(u=>lleno(u.p)&&lleno(u.a)).length>=3,
+ 5:E.length>=1&&E.every(([t])=>lleno(t.v)),
+ 6:E.length>=1&&E.every(([t])=>lleno((t.ex||{}).dom)),
+ 7:lleno(S.anecdota)&&lleno(S.v1)&&lleno(S.v2),
+ 8:S.preguntas.filter(p=>lleno(p.t)).length>=3&&S.criterios.every(c=>lleno(c.n))}}
+const PRODUCTOS=[[1,"Pregunta fenomenológica y memo de presuposiciones"],[2,"Memo de revisión del material"],[3,"Frases holísticas por incidente y frases selectivas"],[4,"Unidades de significado, paráfrasis y aspectos vividos"],[5,"Temas esenciales y descartados con su variación imaginativa"],[6,"Tabla tema × existencial"],[7,"Anécdota, descripción temática v1 y v2 y bitácora"],[8,"Círculo validador, criterios y memo de límites"]];
+function progreso(){const st=estadoPasos();$$(".pasos button").forEach(b=>b.classList.toggle("hecho",!!st[b.dataset.step]));
+ $("#productos").innerHTML=PRODUCTOS.map(([k,n])=>`<li class="${st[k]?"si":""}"><span class="m">${st[k]?"✓":k}</span><span>${esc(n)}</span></li>`).join("");
+ const E=esenciales();$("#conteo").innerHTML=[[lineas().filter(lleno).length,"líneas de texto"],[S.unidades.length,"unidades de significado"],[asps().length,"aspectos vividos"],[E.length,"temas esenciales"],[S.temas.filter(t=>t.d==="Incidental").length,"temas descartados"]].map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join("")}
+
+/* ---------- Eventos ---------- */
+function cambio(){guardar();progreso();prompts()}
+document.addEventListener("input",e=>{const el=e.target;
+ if(el.dataset.multi){const p=el.dataset.multi;const v=new Set(getP(p)||[]);el.checked?v.add(el.value):v.delete(el.value);setP(p,[...v]);cambio();return}
+ const p=el.dataset.path;if(!p)return;setP(p,el.type==="checkbox"?el.checked:el.value);if(el.dataset.chk)pintarAlertaDe(el);
+ if(p==="texto")renderVisor();
+ if(/^(unidades|selectivas)\.\d+\.l$/.test(p))renderVisor();
+ if(/^aspectos\./.test(p)){renderTable("unidades");renderTable("temas")}
+ if(/^temas\.\d+\.(d|e)$/.test(p)){renderExis();renderTemaEscrito()}
+ if(/^temas\.\d+\.ex\./.test(p))menosPresente();
+ if(p==="v1"||p==="v2")comparar();
+ cambio()});
+document.addEventListener("change",e=>{if(e.target.dataset.multi)return;if(e.target.tagName==="SELECT"&&e.target.dataset.path){/* el evento input ya actualizó el estado en la mayoría de navegadores */const p=e.target.dataset.path;if(getP(p)!==e.target.value){setP(p,e.target.value);cambio()}}});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g){e.preventDefault();ir(+g.dataset.go,true);return}
+ const a=e.target.closest("[data-add]");if(a){const k=a.dataset.add;const T=TABLES[k];S[k].push(T.nuevo?T.nuevo(S[k].length):{});renderTable(k);if(k==="aspectos"){renderTable("unidades");renderTable("temas")}if(k==="temas")renderExis();cambio();const f=$(`[data-table="${k}"]`).querySelectorAll(".fila");const q=f[f.length-1]?.querySelector("textarea,input");q&&q.focus();return}
+ const q=e.target.closest("[data-quitar]");if(q){const[k,i]=q.dataset.quitar.split(".");const fila=S[k][+i];const conTexto=Object.values(fila||{}).some(v=>Array.isArray(v)?v.length:lleno(v));if(conTexto&&!confirm("¿Quitar esta fila? Se perderá lo que escribiste en ella."))return;S[k].splice(+i,1);
+  if(k==="temas"&&S.temaEscrito!==""){const te=+S.temaEscrito;if(te===+i)S.temaEscrito="";else if(te>+i)S.temaEscrito=String(te-1)}
+  renderTable(k);if(k==="aspectos"){renderTable("unidades");renderTable("temas")}if(k==="unidades"||k==="selectivas")renderVisor();if(k==="temas"){renderExis();renderTemaEscrito()}cambio()}});
+function ir(n,scroll){$$(".pasos button").forEach(b=>b.setAttribute("aria-selected",String(+b.dataset.step===n)));$$(".panel").forEach(p=>p.hidden=+p.dataset.panel!==n);
+ const b=$(`.pasos button[data-step="${n}"]`),c=$("#pasos");if(b)c.scrollLeft=b.offsetLeft-c.clientWidth/2+b.offsetWidth/2;
+ if(n===6)renderExis();if(n===7){renderTemaEscrito();comparar()}if(n===9)progreso();
+ try{sessionStorage.setItem("fenomenologia-paso",n)}catch(e){}
+ if(scroll)$("#laboratorio").scrollIntoView({behavior:"smooth"})}
+$$(".pasos button").forEach(b=>b.addEventListener("click",()=>ir(+b.dataset.step,false)));
+$("#pasos").addEventListener("keydown",e=>{if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;const B=$$(".pasos button");const i=B.findIndex(b=>b.getAttribute("aria-selected")==="true");const j=(i+(e.key==="ArrowRight"?1:-1)+B.length)%B.length;B[j].focus();ir(+B[j].dataset.step,false)});
+
+/* Partir líneas largas sin cortar palabras */
+$("#reajustar").addEventListener("click",()=>{const out=[];lineas().forEach(l=>{if(l.length<=100){out.push(l);return}let cur="";l.split(/\s+/).forEach(w=>{if((cur+" "+w).trim().length>90&&cur){out.push(cur);cur=w}else cur=(cur+" "+w).trim()});if(cur)out.push(cur)});
+ const antes=lineas().length;S.texto=out.join("\n");$('[data-path="texto"]').value=S.texto;renderVisor();cambio();
+ $("#msgTexto").textContent=out.length===antes?"No había líneas largas.":`Ahora hay ${out.length} líneas.`+(S.unidades.length||S.selectivas.length?" Revisa los números de línea de las unidades que ya marcaste.":"")});
+
+/* ---------- Ejemplo inventado (no corresponde a ningún participante real) ---------- */
+const EJ_TEXTO=["E: Cuéntame un día concreto de tu primer año como profesora que recuerdes con fuerza.","C: El primer lunes que me dejaron sola con el grado séptimo. La profesora titular","se incapacitó y la coordinadora me dijo a las seis y media: «hoy te toca a ti».","Me acuerdo del pasillo, larguísimo, con el piso recién trapeado, oliendo a límpido.","Yo llevaba el cuaderno de planeación apretado contra el pecho, como un escudo.","E: ¿Y cuando entraste?","C: Treinta y ocho muchachos hablando al tiempo. Nadie se dio cuenta de que yo","había entrado. Me quedé parada al lado del tablero, no sé, un minuto entero,","y sentía las manos frías y la cara caliente.","E: ¿Qué pasó después?","C: Escribí la fecha en el tablero, despacio, y el ruido de la tiza fue lo primero","que se oyó. Una niña de adelante, Daniela, les dijo a los demás «ya, que llegó","la profe». Y se callaron. No por mí, por ella.","E: ¿Cómo fue ese momento para ti?","C: Raro. Agradecida y a la vez como si me hubieran prestado la autoridad.","La clase de cuarenta y cinco minutos se me hizo de tres horas al principio","y al final se me pasó volando, porque empezaron a preguntar.","E: ¿Qué preguntaron?","C: Que si yo era de la ciudad, que si tenía novio ((risas)), que si iba a seguir","con ellos. Y esa pregunta, si iba a seguir, me la llevé a la casa.","E: ¿Por qué esa?","C: Porque yo no sabía. Era reemplazo. Y me di cuenta de que ellos ya habían","tenido muchos profesores que llegaban y se iban.","E: ¿Qué hiciste con eso?","C: Al otro día llegué más temprano y me paré en la puerta a saludarlos uno por uno.","Ya no me escondí detrás del tablero. El cuaderno lo dejé en el escritorio.","E: ¿Habría sido igual si la coordinadora te hubiera avisado una semana antes?","C: No creo. Lo de no estar preparada fue parte de todo. Si me hubiera preparado","habría llegado con la clase armada y no los habría escuchado.","E: ¿Qué te queda de ese lunes?","C: Que el salón no es mío porque me lo asignen. Se vuelve de uno cuando lo saludas."].join("\n");
+const EJ={meta:{nombre:"Estudiante de ejemplo",seudonimo:"Clara (relato inventado)",tipo:"Entrevista conversacional"},
+ pregunta:{q:"¿Cómo se vive la primera clase a cargo de un grupo cuando se es docente novata?",importa:"Muchos docentes empiezan como reemplazos, sin aviso. Quiero comprender cómo se vive ese comienzo, no juzgarlo.",fuera:"Evaluar si la coordinación actuó bien, explicar la rotación de docentes y medir la ansiedad de la docente."},
+ presup:[{c:"La primera clase se vive sobre todo como miedo.",o:"Mía",l:"15–17",d:"Clara se dice «agradecida» y al final la clase «se me pasó volando»."},{c:"La autoridad depende de llegar con la clase planeada.",o:"Social",l:"28–29",d:"Para Clara, no estar preparada le permitió escuchar."},{c:"Los estudiantes ponen a prueba a la profesora nueva.",o:"Social",l:"12–13",d:"Una estudiante calla al grupo por ella."},{c:"Lo importante ocurre dentro del aula.",o:"Mía",l:"25",d:"El cambio ocurre en la puerta, al saludar."}],
+ texto:EJ_TEXTO,dudosos:"Ninguno: el relato es inventado para practicar.",
+ revision:[{v:"En parte",e:"L. 28–29: «Si me hubiera preparado…» ya es una explicación.",q:""},{v:"Sí",e:"Agradecida, prestada (L. 15).",q:""},{v:"Sí",e:"Un lunes concreto (L. 2).",q:""},{v:"Sí",e:"La primera vez sola con un grupo (L. 2).",q:""},{v:"Sí",e:"Límpido (L. 4), manos frías y cara caliente (L. 9), tiza (L. 11).",q:"¿Qué sentías en el cuerpo al día siguiente, en la puerta?"},{v:"Sí",e:"Relato sobrio.",q:""}],
+ holistica:"La primera clase se vive como entrar a un lugar ajeno con una autoridad prestada, que empieza a volverse propia al escuchar y saludar a los estudiantes.",
+ incidentes:[{n:"INC-1 · El aviso y el pasillo",l:"2–5",f:"La avisan a última hora y recorre el pasillo con el cuaderno contra el pecho."},{n:"INC-2 · Junto al tablero",l:"7–9",f:"Nadie nota su llegada; se queda quieta, con las manos frías y la cara caliente."},{n:"INC-3 · La tiza y Daniela",l:"11–13",f:"Escribe la fecha y una estudiante calla al grupo por ella."},{n:"INC-4 · El tiempo de la clase",l:"15–17",f:"La clase se alarga al principio y se acorta cuando los estudiantes preguntan."},{n:"INC-5 · ¿Va a seguir?",l:"19–23",f:"Le preguntan si va a seguir y se lleva la pregunta a casa."},{n:"INC-6 · Saludar en la puerta",l:"25–31",f:"Al otro día saluda uno por uno en la puerta y deja el cuaderno en el escritorio."}],
+ selectivas:[{t:"como un escudo",l:"5",p:"El cuerpo se protege antes de entrar."},{t:"como si me hubieran prestado la autoridad",l:"15",p:"Un estado doble: agradecida y, a la vez, sin autoridad propia."},{t:"Se vuelve de uno cuando lo saludas.",l:"31",p:"Muestra el paso de lo ajeno a lo propio."}],
+ aspectos:[{id:"ASP-01",n:"Protegerse al llegar"},{id:"ASP-02",n:"Estar sin ser vista"},{id:"ASP-03",n:"Autoridad prestada"},{id:"ASP-04",n:"Tiempo que cambia de ritmo"},{id:"ASP-05",n:"Quedarse o irse"},{id:"ASP-06",n:"Hacer propio el salón"}],
+ unidades:[{l:"4–5",t:"el cuaderno de planeación apretado contra el pecho, como un escudo",p:"Lleva el cuaderno apretado contra el pecho, como un escudo.",a:"ASP-01"},{l:"7–9",t:"Nadie se dio cuenta de que yo había entrado. […] sentía las manos frías y la cara caliente.",p:"Nadie nota que entra; siente las manos frías y la cara caliente.",a:"ASP-02"},{l:"12–13",t:"Y se callaron. No por mí, por ella.",p:"El grupo se calla por una estudiante, no por ella.",a:"ASP-03"},{l:"15",t:"Agradecida y a la vez como si me hubieran prestado la autoridad.",p:"Se siente agradecida y, a la vez, como si le prestaran la autoridad.",a:"ASP-03"},{l:"16–17",t:"se me hizo de tres horas al principio y al final se me pasó volando",p:"La clase se le alarga al principio y se le pasa volando al final.",a:"ASP-04"},{l:"20",t:"esa pregunta, si iba a seguir, me la llevé a la casa.",p:"La pregunta de si va a seguir se le queda y se la lleva a casa.",a:"ASP-05"},{l:"25–26",t:"me paré en la puerta a saludarlos uno por uno. […] El cuaderno lo dejé en el escritorio.",p:"Al otro día saluda a cada estudiante en la puerta y deja el cuaderno en el escritorio.",a:"ASP-06"},{l:"31",t:"Se vuelve de uno cuando lo saludas.",p:"El salón se vuelve de uno cuando saluda a quienes están en él.",a:"ASP-06"}],
+ temas:[{e:"La primera clase como entrar expuesta a un lugar que todavía no es propio",asp:["ASP-01","ASP-02"],v:"Si el grupo la hubiera recibido en silencio y atento, ¿sería la misma experiencia? No: la exposición y la necesidad de protegerse organizan toda la llegada.",d:"Esencial",ex:{esp:"Pasillo larguísimo (L. 4); junto al tablero (L. 8).",cue:"Cuaderno contra el pecho (L. 5); manos frías y cara caliente (L. 9).",tie:"Un minuto entero quieta (L. 8).",rel:"Nadie se da cuenta de que entra (L. 7–8).",dom:"Cuerpo y espacio",por:"La llegada se cuenta con un cuerpo que se protege en un lugar ajeno."}},
+  {e:"La autoridad se recibe prestada antes de poder ejercerse",asp:["ASP-03"],v:"Sin Daniela, Clara habría tenido que callar al grupo ella misma. ¿Seguiría siendo la misma experiencia? Probablemente no: lo prestado forma parte de cómo cuenta el comienzo. Depende de una suposición mía: hay que preguntárselo.",d:"Esencial provisional",ex:{esp:"",cue:"",tie:"",rel:"Daniela calla al grupo (L. 12–13); «no por mí, por ella» (L. 13).",dom:"Relación vivida",por:"La autoridad pasa por otra persona."}},
+  {e:"El salón se vuelve propio en el encuentro con los estudiantes",asp:["ASP-05","ASP-06"],v:"Si Clara no hubiera vuelto a saludar en la puerta, ¿sería igual? No: desaparece el paso de lo ajeno a lo propio que cierra el relato.",d:"Esencial",ex:{esp:"La puerta frente al tablero (L. 25–26).",cue:"Pararse en la puerta (L. 25).",tie:"«Al otro día» (L. 25); la pregunta que se lleva a casa (L. 20).",rel:"Saludar uno por uno (L. 25); profesores que llegaban y se iban (L. 22–23).",dom:"Espacio y relación",por:"El lugar cambia cuando cambia el vínculo."}},
+  {e:"El olor a límpido del pasillo marca la llegada",asp:["ASP-01"],v:"Con otro olor, o sin ninguno, la llegada seguiría siendo la misma.",d:"Incidental"},
+  {e:"Las preguntas personales de los estudiantes la incomodan",asp:["ASP-05"],v:"Si hubieran preguntado otras cosas, lo que pesa sigue siendo «si iba a seguir».",d:"Incidental"}],
+ tensiones:"Clara se siente agradecida y, al mismo tiempo, sin autoridad propia (L. 15). La tensión se resuelve al día siguiente, en la puerta (L. 25–26).",
+ pregExist:"¿Cómo se sentía tu cuerpo al día siguiente, en la puerta, comparado con el lunes junto al tablero?",temaEscrito:"2",
+ anecdota:"Le avisaron a las seis y media. Recorrió el pasillo con el cuaderno de planeación apretado contra el pecho. Al entrar, nadie la vio. Se quedó junto al tablero un minuto entero, con las manos frías y la cara caliente. Escribió la fecha despacio; el ruido de la tiza fue lo primero que se oyó. Una niña dijo «ya, que llegó la profe», y el grupo se calló.",
+ v1:"La primera clase de Clara muestra que la autoridad docente se construye porque los estudiantes necesitan estabilidad. Ella llega insegura debido a la falta de preparación y después lo supera.",
+ v2:"Clara llega a un salón que todavía no es suyo. Entra con el cuaderno contra el pecho y nadie la ve. El silencio llega por otra voz: «no por mí, por ella». Al día siguiente se para en la puerta y saluda a cada estudiante. El salón empieza a ser suyo cuando saluda.",
+ bitacora:[{f:"2026-11-25",c:"Quité «porque» y «debido a»; dejé las palabras de Clara y el gesto de la puerta.",p:"La versión 1 explicaba en lugar de mostrar."}],
+ preguntas:[{t:"¿Así lo viviste? ¿Qué falta o sobra en la descripción?"},{t:"Si Daniela no hubiera callado al grupo, ¿habría sido el mismo lunes?"},{t:"¿Qué sentías en el cuerpo al saludar en la puerta?"}],
+ respuestas:"",criterios:[{n:"Logrado",x:"La pregunta orienta todo el análisis."},{n:"En desarrollo",x:"T2 depende de la validación con Clara."},{n:"En desarrollo",x:"Relato breve; poco sobre el segundo día."},{n:"Logrado",x:"Conserva la tensión entre gratitud y autoridad prestada."}],
+ limites:"Es un relato inventado y breve. No permite afirmar nada sobre otros docentes novatos; solo muestra una manera de vivir el comienzo.",
+ pedagogica:"¿Qué viven mis estudiantes, y qué vivo yo, cuando alguien llega a un salón que todavía no es suyo?",anexo:true};
+function hayTrabajo(){return lleno(S.texto)||lleno(S.pregunta.q)||S.unidades.length>0}
+$("#cargarEj").addEventListener("click",()=>{if(hayTrabajo()&&!confirm("Cargar el ejemplo reemplaza tu trabajo actual en este navegador. Si quieres conservarlo, primero descarga el respaldo. ¿Continuar?"))return;S=normalizar(JSON.parse(JSON.stringify(EJ)));todo();ir(1,true)});
+
+/* ---------- Respaldo ---------- */
+function save(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)}
+const nombreArchivo=ext=>"Analisis_fenomenologico_"+((S.meta.seudonimo||"borrador").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^\w]+/g,"_").replace(/^_|_$/g,"").slice(0,40)||"borrador")+"."+ext;
+$("#btnJson").addEventListener("click",()=>{save(new Blob([JSON.stringify(S,null,2)],{type:"application/json"}),nombreArchivo("json"));$("#msgResp").textContent="Respaldo descargado. Guárdalo en un lugar seguro: contiene tu material."});
+$("#fileJson").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const o=JSON.parse(await f.text());if(!o||typeof o!=="object"||!("texto" in o||"pregunta" in o))throw 0;if(hayTrabajo()&&!confirm("El respaldo reemplazará el trabajo actual. ¿Continuar?"))return;S=normalizar(o);todo();$("#msgResp").textContent="Respaldo recuperado."}catch(err){$("#msgResp").textContent="No se pudo leer el archivo: no parece un respaldo de este laboratorio."}});
+$("#btnBorrar").addEventListener("click",()=>{if(!confirm("Se borrará todo tu trabajo de este navegador. No se puede deshacer. ¿Borrar?"))return;S=vacio();try{localStorage.removeItem(KEY)}catch(e){}todo();$("#msgResp").textContent="Trabajo borrado de este navegador."});
+
+/* ---------- Informe en Word con marca de agua (docx 8.5.0, misma base que la Ruta) ---------- */
+const LIBS={docx:["https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js","https://unpkg.com/docx@8.5.0/build/index.umd.js"]};
+const SRI={docx:"sha384-4xaIisuLEy2lo2HkB2C4rEf7v8jbTb2kuogX6TkuEt9feTWKBSFSOzsqNNbV+sKh"};
+let libP=null;
+function lib(){if(window.docx)return Promise.resolve(window.docx);if(libP)return libP;libP=(async()=>{for(const u of LIBS.docx){try{await new Promise((ok,ko)=>{const sc=document.createElement("script");sc.src=u;sc.integrity=SRI.docx;sc.crossOrigin="anonymous";sc.onload=ok;sc.onerror=ko;document.head.appendChild(sc)});if(window.docx)return window.docx}catch(e){}}libP=null;return null})();return libP}
+const HEAD="Laboratorio de análisis fenomenológico · Elver Chaparro Cardozo";
+const LIC="Plantilla y formato: Laboratorio de análisis fenomenológico, de Elver Chaparro Cardozo. Licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 (CC BY-NC-SA 4.0): https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es. El análisis pertenece a su autor.";
+/* Marca de agua: círculo hermenéutico azul al 11 % de opacidad, centrado detrás del texto */
+const WM_SVG="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' width='600' height='600'><g stroke='#1f5fa6' stroke-width='18' fill='none' stroke-linecap='round' stroke-linejoin='round'><path d='M440 160A200 200 0 1 0 500 300'/><path d='M385 110l60 55-75 30'/></g><g fill='#1f5fa6'><circle cx='300' cy='300' r='52'/><circle cx='300' cy='150' r='22'/><circle cx='450' cy='300' r='22'/><circle cx='300' cy='450' r='22'/><circle cx='150' cy='300' r='22'/></g></svg>";
+let WM=null;
+(async()=>{try{const i=new Image();i.src="data:image/svg+xml,"+encodeURIComponent(WM_SVG);await i.decode();const c=document.createElement("canvas");c.width=c.height=600;const x=c.getContext("2d");x.globalAlpha=.11;x.drawImage(i,0,0,600,600);const b=await new Promise(r=>c.toBlob(r,"image/png"));WM=new Uint8Array(await b.arrayBuffer())}catch(e){}})();
+function wmHeader(d){try{if(!WM)return undefined;return{default:new d.Header({children:[new d.Paragraph({children:[new d.ImageRun({data:WM,transformation:{width:380,height:380},floating:{horizontalPosition:{relative:d.HorizontalPositionRelativeFrom.PAGE,align:d.HorizontalPositionAlign.CENTER},verticalPosition:{relative:d.VerticalPositionRelativeFrom.PAGE,align:d.VerticalPositionAlign.CENTER},behindDocument:true,allowOverlap:true}})]})]})}}catch(e){return undefined}}
+function runs(d,t,o={}){const L=String(t??"").split("\n");return L.map((x,i)=>new d.TextRun({text:x,bold:!!o.bold,italics:!!o.i,size:o.size||21,color:o.color,break:i?1:undefined}))}
+function cell(d,t,o={}){return new d.TableCell({children:[new d.Paragraph({children:runs(d,t,{bold:o.bold,size:o.size||19,color:o.color})})],shading:o.fill?{type:d.ShadingType.CLEAR,fill:o.fill,color:"auto"}:undefined,width:o.w?{size:o.w,type:d.WidthType.DXA}:undefined})}
+function head(d,t){return new d.Paragraph({children:[new d.TextRun({text:t,bold:true,size:38,color:"0E1F33"})],spacing:{after:80}})}
+function sub(d,t){return new d.Paragraph({children:[new d.TextRun({text:t,size:20,color:"4B5563"})],spacing:{after:240}})}
+function h2(d,t){return new d.Paragraph({children:[new d.TextRun({text:t,bold:true,size:28,color:"1F5FA6"})],spacing:{before:320,after:100},keepNext:true})}
+function h3(d,t){return new d.Paragraph({children:[new d.TextRun({text:t,bold:true,size:23,color:"0E1F33"})],spacing:{before:200,after:80},keepNext:true})}
+function p(d,t,o={}){return new d.Paragraph({children:runs(d,lleno(t)?t:"—",o),spacing:{after:o.after??120}})}
+const ANCHO=9900;
+const anchos=(W,n)=>{W=W||Array(n).fill(1);const t=W.reduce((a,b)=>a+b,0);return W.map(x=>Math.round(ANCHO*x/t))};
+function table(d,rows,cw){return new d.Table({width:{size:ANCHO,type:d.WidthType.DXA},columnWidths:cw,layout:d.TableLayoutType.FIXED,rows})}
+function hdrRow(d,H,cw){return new d.TableRow({tableHeader:true,children:H.map((h,i)=>cell(d,h,{bold:true,fill:"0E1F33",color:"FFFFFF",size:18,w:cw[i]}))})}
+function tabla(d,H,R,W){const F=R.filter(r=>r.some(lleno));if(!F.length)return p(d,"Sin registros.",{i:true,color:"56637A"});const cw=anchos(W,H.length);return table(d,[hdrRow(d,H,cw),...F.map(r=>new d.TableRow({cantSplit:true,children:r.map((c,i)=>cell(d,c,{w:cw[i]}))}))],cw)}
+function kv(d,pairs){const cw=anchos([30,70]);return table(d,pairs.map(([k,v])=>new d.TableRow({children:[cell(d,k,{bold:true,fill:"EAF1FA",w:cw[0]}),cell(d,lleno(v)?v:"—",{w:cw[1]})]})),cw)}
+const nomAsp=id=>{const a=S.aspectos.find(x=>x.id===id);return a?`${a.id} ${a.n||""}`.trim():id||""};
+function informe(d){const E=esenciales(),I=S.temas.filter(t=>t.d==="Incidental"),ch=[];const hoy=new Date().toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"});
+ ch.push(head(d,"Análisis fenomenológico"),sub(d,HEAD),kv(d,[["Estudiante",S.meta.nombre],["Participante (seudónimo)",S.meta.seudonimo],["Tipo de material",S.meta.tipo],["Fecha del informe",hoy]]));
+ ch.push(h2(d,"1. Pregunta fenomenológica y presuposiciones"),kv(d,[["Pregunta",S.pregunta.q],["Por qué importa",S.pregunta.importa],["Lo que deja fuera",S.pregunta.fuera]]),h3(d,"Memo de presuposiciones"),tabla(d,["Presuposición","Origen","Pasaje","Qué dice el texto"],S.presup.map(x=>[x.c,x.o,x.l,x.d]),[3,1.2,1,3]));
+ ch.push(h2(d,"2. Revisión del material"),tabla(d,["Sugerencia de Van Manen","¿Se cumple?","Evidencia","Qué preguntar después"],S.revision.map((x,i)=>[SUGERENCIAS[i][0],x.v,x.e,x.q]),[2.2,1.2,2.6,2.6]),h3(d,"Fragmentos dudosos"),p(d,S.dudosos));
+ ch.push(h2(d,"3. Lectura holística y selectiva"),h3(d,"Frase de sentido del texto"),p(d,S.holistica),h3(d,"Incidentes"),tabla(d,["Incidente","Líneas","Frase holística"],S.incidentes.map(x=>[x.n,x.l,x.f]),[2.2,.9,4.2]),h3(d,"Frases selectivas"),tabla(d,["#","Frase (literal)","Línea","Por qué revela la experiencia"],S.selectivas.map((x,i)=>["S"+(i+1),x.t,x.l,x.p]),[.6,3,.8,3]));
+ ch.push(h2(d,"4. Unidades de significado y aspectos vividos"),tabla(d,["#","Líneas","Fragmento literal","Paráfrasis","Aspecto vivido"],S.unidades.map((x,i)=>["U"+(i+1),x.l,x.t,x.p,nomAsp(x.a)]),[.6,.9,3,3,1.8]),h3(d,"Aspectos vividos"),tabla(d,["Código","Aspecto","Unidades"],asps().map(a=>[a.id,a.n,S.unidades.map((u,i)=>u.a===a.id?"U"+(i+1):"").filter(Boolean).join(", ")])));
+ ch.push(h2(d,"5. Temas esenciales y variación imaginativa"),tabla(d,["#","Tema","Aspectos","Variación imaginativa","Decisión"],E.map(([t],k)=>["T"+(k+1),t.e,(t.asp||[]).join(", "),t.v,t.d]),[.6,2.6,1.2,3.6,1.3]),h3(d,"Temas descartados"),tabla(d,["#","Tema","Variación imaginativa","Decisión"],I.map((t,k)=>["TEI-"+(k+1),t.e,t.v,t.d]),[.8,3,3.6,1.2]),h3(d,"Tensiones entre temas"),p(d,S.tensiones));
+ ch.push(h2(d,"6. Los cuatro existenciales"),tabla(d,["Tema","Espacio vivido","Cuerpo vivido","Tiempo vivido","Relación vivida","Dominante y por qué"],E.map(([t],k)=>{const x=t.ex||{};return["T"+(k+1),x.esp,x.cue,x.tie,x.rel,[x.dom,x.por].filter(lleno).join(": ")]}),[.6,1.6,1.6,1.6,1.6,1.8]),h3(d,"Pregunta sobre el existencial menos presente"),p(d,S.pregExist));
+ const te=S.temaEscrito!==""&&S.temas[+S.temaEscrito];
+ ch.push(h2(d,"7. Escritura"),kv(d,[["Tema que se escribe",te?te.e:""]]),h3(d,"Anécdota"),p(d,S.anecdota,{i:true}),h3(d,"Descripción temática · versión 1"),p(d,S.v1),h3(d,"Descripción temática · versión 2"),p(d,S.v2),h3(d,"Bitácora de escritura"),tabla(d,["Fecha","Qué cambió","Por qué"],S.bitacora.map(x=>[x.f,x.c,x.p]),[1.2,3,3]));
+ ch.push(h2(d,"8. Círculo validador y calidad"),h3(d,"Preguntas para el círculo validador"),...(S.preguntas.filter(x=>lleno(x.t)).length?S.preguntas.filter(x=>lleno(x.t)).map((x,i)=>p(d,`${i+1}. ${x.t}`,{after:60})):[p(d,"")]),h3(d,"Respuestas, ajustes y desacuerdos"),p(d,S.respuestas),h3(d,"Criterios de calidad (Van Manen, 2003, cap. 6)"),tabla(d,["Criterio","Pregunta","Nivel","Por qué"],S.criterios.map((x,i)=>[CRITERIOS[i][0],CRITERIOS[i][1],x.n,x.x]),[1.2,2.8,1.3,3]),h3(d,"Memo de límites"),p(d,S.limites),h3(d,"Pregunta pedagógica"),p(d,S.pedagogica));
+ ch.push(h2(d,"Referencias"),...["Bevan, M. T. (2014). A method of phenomenological interviewing. Qualitative Health Research, 24(1), 136–144. https://doi.org/10.1177/1049732313519710","Errasti-Ibarrondo, B., Jordán, J. A., Díez-Del-Corral, M. P., y Arantzamendi, M. (2018). Conducting phenomenological research: Rationalizing the methods and rigour of the phenomenology of practice. Journal of Advanced Nursing, 74(7), 1723–1734. https://doi.org/10.1111/jan.13569","Sundler, A. J., Lindberg, E., Nilsson, C., y Palmér, L. (2019). Qualitative thematic analysis based on descriptive phenomenology. Nursing Open, 6(3), 733–739. https://doi.org/10.1002/nop2.275","Van Manen, M. (2003). Investigación educativa y experiencia vivida: Ciencia humana para una pedagogía de la acción y la sensibilidad. Idea Books."].map(r=>new d.Paragraph({children:[new d.TextRun({text:r,size:20})],indent:{left:560,hanging:560},spacing:{after:100}})));
+ if(S.anexo&&lleno(S.texto)){ch.push(new d.Paragraph({children:[new d.TextRun({text:"Anexo. Texto numerado",bold:true,size:28,color:"1F5FA6"})],pageBreakBefore:true,spacing:{after:120}}),p(d,"Material anonimizado. No se comparte sin el consentimiento del participante.",{i:true,color:"C81E4A",size:18}),...lineas().map((l,i)=>new d.Paragraph({children:[new d.TextRun({text:String(i+1).padStart(3," ")+"  ",font:"Consolas",size:17,color:"9AA2AD"}),new d.TextRun({text:l,font:"Consolas",size:18})],spacing:{after:0}})))}
+ return ch}
+const docOf=(d,ch)=>new d.Document({creator:"Laboratorio de análisis fenomenológico",title:"Análisis fenomenológico",styles:{default:{document:{run:{font:"Calibri",size:22}}}},sections:[{properties:{page:{margin:{top:1000,bottom:1000,left:1000,right:1000}}},headers:wmHeader(d),footers:{default:new d.Footer({children:[new d.Paragraph({children:[new d.TextRun({text:LIC,size:15,color:"5D6572"})]})]})},children:ch}]});
+async function blobInforme(){const d=await lib();if(!d)throw new Error("sin docx");return d.Packer.toBlob(docOf(d,informe(d)))}
+$("#btnWord").addEventListener("click",async()=>{const b=$("#btnWord");b.disabled=true;$("#estadoDoc").textContent="Preparando el informe…";
+ try{const n=nombreArchivo("docx");save(await blobInforme(),n);$("#estadoDoc").textContent="Informe descargado: "+n}catch(e){$("#estadoDoc").textContent="No se pudo crear el informe. Revisa la conexión (la librería de Word se descarga la primera vez) e intenta de nuevo."}finally{b.disabled=false}});
+
+/* ---------- Arranque ---------- */
+function altoNav(){document.documentElement.style.setProperty("--navh",$("nav.top").offsetHeight+"px")}altoNav();addEventListener("resize",altoNav);
+function todo(){Object.keys(TABLES).forEach(renderTable);llenar(document);renderVisor();renderExis();renderTemaEscrito();comparar();cambio()}
+todo();
+let paso=1;try{paso=+sessionStorage.getItem("fenomenologia-paso")||1}catch(e){}
+ir(paso,false);
+if(!puedeGuardar)$("#guardado").textContent="Este navegador no permite guardar: descarga el respaldo";
+</script>
+</body>
+</html>
