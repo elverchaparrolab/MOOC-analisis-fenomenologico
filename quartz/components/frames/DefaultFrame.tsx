@@ -26,11 +26,11 @@ export const DefaultFrame: PageFrame = {
     return (
       <>
         <div class="left sidebar">
-          <section class="mooc-author" aria-label="Autor del MOOC">
+          <section class="mooc-author" aria-label="Autor del laboratorio">
             <a href="https://elverchaparrolab.wordpress.com/acerca-de/" aria-label="Perfil de Elver Chaparro Cardozo">
               <img src={`${root}/static/elver-chaparro-cardozo.jpg`} alt="Elver Chaparro Cardozo" width="128" height="128" />
             </a>
-            <p><strong>Elver Chaparro Cardozo</strong><br />Autor del MOOC · Docente</p>
+            <p><strong>Elver Chaparro Cardozo</strong><br />Autor del laboratorio · Docente</p>
             <nav aria-label="Redes y perfiles de Elver Chaparro" class="mooc-social-links">
               <a href="https://github.com/elverchaparrolab">GitHub</a>
               <a href="https://www.linkedin.com/in/elver-chaparro-26544a100/">LinkedIn</a>
@@ -49,14 +49,14 @@ export const DefaultFrame: PageFrame = {
         <div class="center">
           <div class="page-header">
             <nav class="mooc-return-links" aria-label="Regresar y explorar">
-              <a href={root}>Índice del MOOC</a>
+              <a href={root}>← Laboratorio</a>
               <a href="https://elverchaparrolab.wordpress.com/">Sitio principal</a>
               <a href="https://elverchaparrolab.wordpress.com/contenido/">Contenidos y herramientas</a>
               <a href="https://elverchaparrolab.github.io/elver.chaparro-LAB/">Jardín digital</a>
             </nav>
             <p class="mooc-autoria">
-              <span class="eb">MOOC · Maestría en Educación UPTC</span>
-              <strong>El proceso del análisis fenomenológico</strong> · Desarrollado por <strong>Elver Chaparro Cardozo</strong> · © 2026 · Algunos derechos reservados (CC BY-NC-SA 4.0)
+              <span class="eb">Lecturas de apoyo · Maestría en Educación UPTC</span>
+              <strong>Laboratorio de análisis fenomenológico</strong> · Desarrollado por <strong>Elver Chaparro Cardozo</strong> · © 2026 · Algunos derechos reservados (CC BY-NC-SA 4.0)
             </p>
             <Header {...componentData}>
               {header.map((HeaderComponent) => (
@@ -77,7 +77,7 @@ export const DefaultFrame: PageFrame = {
             ))}
             <section class="mooc-content-license" aria-label="Licencia Creative Commons de los contenidos">
               <h2>Licencia de los contenidos</h2>
-              <p>MOOC «El proceso del análisis fenomenológico», desarrollado por Elver Chaparro Cardozo. © {new Date().getFullYear()} Elver Chaparro Cardozo. Los contenidos originales de este MOOC se comparten bajo la licencia <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución–NoComercial–CompartirIgual 4.0 (CC BY-NC-SA 4.0)</a>.</p>
+              <p>Laboratorio de análisis fenomenológico y sus lecturas de apoyo, desarrollados por Elver Chaparro Cardozo. © {new Date().getFullYear()} Elver Chaparro Cardozo. Los contenidos originales se comparten bajo la licencia <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Creative Commons Atribución–NoComercial–CompartirIgual 4.0 (CC BY-NC-SA 4.0)</a>.</p>
               <p>Puede compartir y adaptar estos contenidos citando al autor, enlazando la licencia e indicando los cambios, sin fines comerciales y compartiendo las adaptaciones bajo la misma licencia.</p>
               <p>Las citas, imágenes, esquemas y materiales de terceros conservan sus derechos y licencias originales. El software Quartz conserva su licencia MIT.</p>
               <p><a href="https://elverchaparrolab.github.io/elver.chaparro-LAB/licencia">Consultar el aviso común de licencia</a></p>

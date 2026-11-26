@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: "Análisis fenomenológico · MOOC · Maestría en Educación UPTC - Elver Chaparro Cardozo"
+  pageTitle: "Laboratorio de análisis fenomenológico · Maestría en Educación UPTC - Elver Chaparro Cardozo"
   pageTitleSuffix: ""
   enableSPA: false
   enablePopovers: true

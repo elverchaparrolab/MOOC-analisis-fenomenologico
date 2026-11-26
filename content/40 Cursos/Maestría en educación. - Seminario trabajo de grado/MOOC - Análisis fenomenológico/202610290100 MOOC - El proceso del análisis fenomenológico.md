@@ -2,9 +2,9 @@
 title: "Introducción: el proceso del análisis fenomenológico"
 ---
 
-> [!info] Este Mooc corresponde al curso de análisis de datos en la investigación cualitativa, distribuido en ocho secciones para aprender a analizar una entrevista o un relato desde la fenomenología hermenéutica de Van Manen. Cada sección tiene objetivos, explicación, un ejemplo con la entrevista a "Tomás" (*seudónimo del informante*) sobre el encierro, una actividad práctica y una autoevaluación.
+> [!info] Estas lecturas acompañan el [Laboratorio de análisis fenomenológico](https://elverchaparrolab.github.io/MOOC-analisis-fenomenologico/), donde se trabaja el propio relato paso a paso. Corresponden al curso de análisis de datos en la investigación cualitativa, distribuidas en ocho secciones para aprender a analizar una entrevista o un relato desde la fenomenología hermenéutica de Van Manen. Cada sección tiene objetivos, explicación, un ejemplo con la entrevista a "Tomás" (*seudónimo del informante*) sobre el encierro, una actividad práctica y una autoevaluación.
 
-## Qué se busca con el Mooc?
+## ¿Qué se busca con estas lecturas?
 1. Formular una pregunta fenomenológica y explicitar tus presuposiciones.
 2. Producir y revisar material experiencial (entrevista o protocolo).
 3. Leer un texto en tres niveles: holístico, selectivo y detallado.

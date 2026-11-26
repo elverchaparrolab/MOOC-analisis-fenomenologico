@@ -1,5 +1,5 @@
 ---
-title: "MOOC: El proceso del análisis fenomenológico · Maestría en Educación UPTC - Elver Chaparro Cardozo"
+title: "Lecturas de apoyo: el proceso del análisis fenomenológico · Maestría en Educación UPTC - Elver Chaparro Cardozo"
 ---
 
 Curso autoguiado en ocho secciones para aprender a analizar una entrevista o un relato desde la fenomenología hermenéutica de Van Manen. Seminario de trabajo de grado · Maestría en Educación · UPTC.
